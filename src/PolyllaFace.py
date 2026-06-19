@@ -1,7 +1,7 @@
 ##Notice: Polyhedrons are representd a list of faces
 
 import statistics
-from newMesh import FaceTetrahedronMesh, Polyhedron
+from .newMesh import FaceTetrahedronMesh, Polyhedron
 import numpy as np
 import sys
 from collections import Counter
@@ -9,8 +9,7 @@ from math import floor, sqrt
 import random
 import matplotlib.pyplot as plt
 from scipy.spatial import ConvexHull
-import numpy as np
-from utils import ccw_check
+from .utils import ccw_check
 import tetgen
 
 

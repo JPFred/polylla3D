@@ -1,8 +1,8 @@
-# Los polihedros se represen como un conjunto de tetrahedros
+# Los polihedros se representan como un conjunto de tetrahedros
 # se deben transformar a un conjunto de caras
 
 
-from mesh import TetrahedronMesh, Polyhedron
+from .mesh import TetrahedronMesh, Polyhedron
 from collections import Counter
 
 

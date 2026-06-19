@@ -4,3 +4,5 @@ matplotlib>=3.5.0
 jupyter>=1.0.0
 ipython>=7.30.0
 tetgen>=0.5.1
+meshio>=5.0.0
+pyvista>=0.37.0
