@@ -1,8 +1,16 @@
 # Los polihedros se representan como un conjunto de tetrahedros
 # se deben transformar a un conjunto de caras
 
+import sys
+from pathlib import Path
 
-from .mesh import TetrahedronMesh, Polyhedron
+# Allow imports to work both as a package and as a direct script
+try:
+    from .mesh import TetrahedronMesh, Polyhedron
+except ImportError:
+    sys.path.insert(0, str(Path(__file__).parent))
+    from mesh import TetrahedronMesh, Polyhedron
+
 from collections import Counter
 
 

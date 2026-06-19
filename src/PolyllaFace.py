@@ -1,15 +1,25 @@
 ##Notice: Polyhedrons are representd a list of faces
 
-import statistics
-from .newMesh import FaceTetrahedronMesh, Polyhedron
-import numpy as np
 import sys
+from pathlib import Path
+
+# Allow imports to work both as a package and as a direct script
+try:
+    from .newMesh import FaceTetrahedronMesh, Polyhedron
+    from .utils import ccw_check
+except ImportError:
+    sys.path.insert(0, str(Path(__file__).parent))
+    from newMesh import FaceTetrahedronMesh, Polyhedron
+    from utils import ccw_check
+
+import statistics
+import numpy as np
+import sys as sys2
 from collections import Counter
 from math import floor, sqrt
 import random
 import matplotlib.pyplot as plt
 from scipy.spatial import ConvexHull
-from .utils import ccw_check
 import tetgen
 
 
