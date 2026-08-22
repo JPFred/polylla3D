@@ -311,8 +311,8 @@ class TetrahedronMesh:
         print("Number of edges: ", len(self.edge_list))
 
 if __name__ == "__main__":
-    #filename = "data\\3D_100.1"
-    filename = "data\\socket.1"
+    filename = "data\\3D_100.1"
+    #filename = "data\\socket.1"
     node_file = filename + ".node"
     ele_file = filename + ".ele"
     face_file = filename + ".face"

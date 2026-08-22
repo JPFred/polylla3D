@@ -1038,17 +1038,12 @@ class PolyllaFace:
         max_edge_ratio = max(ratios)
         return [mean_edge_ratio, min_edge_ratio, max_edge_ratio]
 
-        
-
-        
-
-
 
 if __name__ == "__main__":
     folder = "data\\"
     #file = "3D_100.1"
-    file = "socket.1"
-   # file = "1000points.1"
+    #file = "socket.1"
+    file = "1000random.1"
     filename = folder + file 
     node_file = filename + ".node"
     ele_file = filename + ".ele"

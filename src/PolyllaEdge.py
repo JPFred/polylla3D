@@ -246,9 +246,9 @@ if __name__ == "__main__":
     polylla_mesh = PolyllaEdge(mesh)
 
 
-#    for i in range(0, len(polylla_mesh.polyhedron_mesh)):
-#        #print(polylla_mesh.polyhedron_mesh[i])
-#        polylla_mesh.printOFF_faces(folder + file + "POLYLLAEDGE_polyhedron_" + str(i) + ".off", polylla_mesh.polyhedron_mesh[i])
-#    print(polylla_mesh.polyhedron_mesh[0])
-    #polylla_mesh.printOFF_polyhedralmesh(folder + file + "POLYLLAEDGE.off")
-    polylla_mesh.get_info()
+#     for i in range(0, len(polylla_mesh.polyhedron_mesh)):
+#         #print(polylla_mesh.polyhedron_mesh[i])
+#         polylla_mesh.printOFF_faces(folder + file + "POLYLLAEDGE_polyhedron_" + str(i) + ".off", polylla_mesh.polyhedron_mesh[i])
+# #    print(polylla_mesh.polyhedron_mesh[0])
+#     polylla_mesh.printOFF_polyhedralmesh(folder + file + "POLYLLAEDGE.off")
+#     polylla_mesh.get_info()

@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PolyllaFace explicado</title>
+  <style>
+    :root {
+      --ink: #17212b;
+      --muted: #5c6b76;
+      --paper: #f7f4ee;
+      --panel: #fffdf8;
+      --line: #d8d0c2;
+      --blue: #166088;
+      --blue-soft: #e5f2f8;
+      --green: #2e7d57;
+      --green-soft: #e6f4ec;
+      --orange: #b65e20;
+      --orange-soft: #fff0e3;
+      --red: #9d3d43;
+      --red-soft: #fbe9eb;
+      --purple: #654b86;
+      --purple-soft: #f0eafa;
+      --code: #202a33;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(22,96,136,.08), transparent 34%),
+        linear-gradient(315deg, rgba(182,94,32,.07), transparent 32%),
+        var(--paper);
+      font: 16px/1.6 Georgia, "Times New Roman", serif;
+    }
+    main { max-width: 1120px; margin: 0 auto; padding: 48px 24px 80px; }
+    header { border-bottom: 3px solid var(--ink); padding-bottom: 28px; margin-bottom: 28px; }
+    h1, h2, h3 { font-family: "Trebuchet MS", Verdana, sans-serif; line-height: 1.15; }
+    h1 { max-width: 780px; margin: 0 0 14px; font-size: clamp(2.2rem, 6vw, 4.8rem); letter-spacing: 0; }
+    h2 { margin-top: 52px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 2rem; }
+    h3 { margin-top: 28px; font-size: 1.25rem; }
+    p { max-width: 82ch; }
+    .dek { color: var(--muted); font-size: 1.2rem; max-width: 72ch; }
+    .legend, .callout, .contract, .flow { background: var(--panel); border: 1px solid var(--line); padding: 20px; margin: 20px 0; box-shadow: 5px 5px 0 rgba(23,33,43,.06); }
+    .legend { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+    .legend strong { margin-right: 8px; }
+    .tag { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: .92rem; }
+    .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+    .dot.blue { background: var(--blue); } .dot.green { background: var(--green); }
+    .dot.orange { background: var(--orange); } .dot.red { background: var(--red); }
+    .dot.purple { background: var(--purple); }
+    .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .step { padding: 14px; min-height: 104px; border-left: 5px solid var(--blue); background: var(--blue-soft); }
+    .step:nth-child(2) { border-color: var(--green); background: var(--green-soft); }
+    .step:nth-child(3) { border-color: var(--orange); background: var(--orange-soft); }
+    .step:nth-child(4) { border-color: var(--purple); background: var(--purple-soft); }
+    .step b { display: block; font-family: "Trebuchet MS", Verdana, sans-serif; }
+    .callout { border-left: 6px solid var(--orange); background: var(--orange-soft); }
+    .contract { border-left: 6px solid var(--blue); background: var(--blue-soft); }
+    .code-wrap { margin: 18px 0 24px; position: relative; }
+    .code-label { position: absolute; top: 0; right: 0; padding: 3px 10px; color: #d8e6ed; background: #344552; font: .76rem/1.4 Consolas, monospace; }
+    pre { overflow-x: auto; margin: 0; padding: 28px 20px 18px; color: #edf4f7; background: var(--code); border: 1px solid #111920; font: .91rem/1.55 Consolas, "Courier New", monospace; tab-size: 4; }
+    code { font-family: Consolas, "Courier New", monospace; }
+    p code, li code { color: var(--red); background: rgba(157,61,67,.09); padding: 1px 4px; }
+    .kw { color: #83d3ff; } .fn { color: #f5ca79; } .str { color: #b9e59d; }
+    .num { color: #f4a6c0; } .cm { color: #93a4ae; font-style: italic; }
+    .type { color: #e2aeff; } .op { color: #d4e7ef; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .card { padding: 18px; background: var(--panel); border: 1px solid var(--line); }
+    .card h3 { margin-top: 0; }
+    table { width: 100%; border-collapse: collapse; background: var(--panel); margin: 18px 0; }
+    th, td { text-align: left; vertical-align: top; padding: 11px 13px; border: 1px solid var(--line); }
+    th { background: #e9e2d7; font-family: "Trebuchet MS", Verdana, sans-serif; }
+    .small { color: var(--muted); font-size: .94rem; }
+    .check { color: var(--green); font-weight: bold; }
+    footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); }
+    @media (max-width: 760px) { main { padding: 30px 16px 60px; } .flow, .grid { grid-template-columns: 1fr; } h2 { font-size: 1.65rem; } }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="small">Guía del proyecto Polylla3D</p>
+    <h1>Cómo funciona <code>PolyllaFace</code></h1>
+    <p class="dek">Una lectura visual, paso a paso, del programa que transforma una malla tetraédrica en una colección de poliedros usando caras como fronteras de agrupación.</p>
+  </header>
+
+  <div class="legend" aria-label="Leyenda de colores">
+    <strong>Leyenda</strong>
+    <span class="tag"><i class="dot blue"></i>datos y topología</span>
+    <span class="tag"><i class="dot green"></i>selección y recorrido</span>
+    <span class="tag"><i class="dot orange"></i>reparación</span>
+    <span class="tag"><i class="dot purple"></i>salida y estadísticas</span>
+    <span class="tag"><i class="dot red"></i>decisiones o errores</span>
+  </div>
+
+  <h2>1. La idea general</h2>
+  <p>Una malla tetraédrica está formada por muchos tetraedros conectados por caras. PolyllaFace decide qué caras deben actuar como fronteras y agrupa los tetraedros que quedan entre ellas. Cada grupo se convierte en un objeto <code>Polyhedron</code>.</p>
+  <div class="flow">
+    <div class="step"><b>1. Leer</b>Se cargan nodos, caras y tetraedros desde los archivos de TetGen.</div>
+    <div class="step"><b>2. Medir</b>Se calcula una métrica para elegir una cara por tetraedro.</div>
+    <div class="step"><b>3. Recorrer</b>Un DFS agrupa tetraedros cruzando solo caras internas.</div>
+    <div class="step"><b>4. Reparar y exportar</b>Se corrigen barreras y se escribe un archivo OFF.</div>
+  </div>
+
+  <h2>2. Entrada desde TetGen</h2>
+  <p>Para cada malla generada por el notebook se utiliza el mismo nombre base. Por ejemplo, para <code>1000random.1</code>:</p>
+  <table>
+    <thead><tr><th>Archivo</th><th>Contenido</th><th>Uso en PolyllaFace</th></tr></thead>
+    <tbody>
+      <tr><td><code>1000random.1.node</code></td><td>Índice y coordenadas de cada vértice.</td><td><code>node_list</code></td></tr>
+      <tr><td><code>1000random.1.face</code></td><td>Triángulos, vecinos y marcadores.</td><td><code>face_list</code></td></tr>
+      <tr><td><code>1000random.1.ele</code></td><td>Cuatro índices de vértices por tetraedro.</td><td><code>tetra_list</code></td></tr>
+      <tr><td><code>1000random.1.edge</code></td><td>Aristas de TetGen.</td><td>No es necesario: la clase reconstruye aristas.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="code-wrap"><span class="code-label">src/newMesh.py</span><pre><code><span class="kw">mesh</span> <span class="op">=</span> <span class="fn">FaceTetrahedronMesh</span>(
+    <span class="str">"data/1000random.1.node"</span>,
+    <span class="str">"data/1000random.1.face"</span>,
+    <span class="str">"data/1000random.1.ele"</span>,
+)</code></pre></div>
+  <p class="contract"><strong>Contrato importante:</strong> <code>FaceTetrahedronMesh</code> necesita que los índices escritos por TetGen sean compatibles con las posiciones de las listas. Los archivos generados por la configuración actual ya cumplen ese contrato.</p>
+
+  <h2>3. Las estructuras de datos</h2>
+  <div class="grid">
+    <section class="card"><h3><code>Vertex</code></h3><p>Representa un nodo con índice <code>i</code> y coordenadas <code>x, y, z</code>. Los objetos viven en <code>mesh.node_list</code>.</p></section>
+    <section class="card"><h3><code>Face</code></h3><p>Guarda tres vértices, hasta dos tetraedros vecinos (<code>n1</code>, <code>n2</code>), sus tres aristas, área y si es frontera.</p></section>
+    <section class="card"><h3><code>Tetrahedron</code></h3><p>Guarda cuatro vértices, cuatro caras y cuatro vecinos. La posición es esencial: <code>tetra.faces[i]</code> corresponde a <code>tetra.neighs[i]</code>.</p></section>
+    <section class="card"><h3><code>Polyhedron</code></h3><p>Es el resultado: una lista de índices de tetraedros y otra de caras frontera. También registra si fue reparado o clasificado como convexo.</p></section>
+  </div>
+  <p>Durante <code>save_faces</code>, las caras se buscan con los tres índices ordenados. Así, el programa puede reconocer la misma cara aunque los vértices aparezcan en órdenes diferentes.</p>
+
+  <h2>4. El constructor: el flujo principal</h2>
+  <p>El constructor de <code>PolyllaFace</code> hace prácticamente todo el algoritmo. Al terminar, <code>polyhedral_mesh</code> ya contiene los poliedros.</p>
+  <div class="code-wrap"><span class="code-label">PolyllaFace.__init__</span><pre><code><span class="kw">self</span>.mesh <span class="op">=</span> mesh
+<span class="kw">self</span>.flag <span class="op">=</span> flag
+
+<span class="cm"># Cada flag apunta a una estrategia de selección.</span>
+<span class="kw">self</span>.FLAGS <span class="op">=</span> {
+    <span class="str">'r'</span>: <span class="kw">self</span>.<span class="fn">calculate_max_incircle_faces</span>,
+    <span class="str">'R'</span>: <span class="kw">self</span>.<span class="fn">calculate_max_circumcircle_faces</span>,
+    <span class="str">'tra'</span>: <span class="kw">self</span>.<span class="fn">calculate_max_triangle_aspect_faces</span>,
+    <span class="str">'are1'</span>: <span class="kw">self</span>.<span class="fn">calculate_max_aspect_ratio_e1_faces</span>,
+    <span class="str">'are2'</span>: <span class="kw">self</span>.<span class="fn">calculate_max_aspect_ratio_e2_faces</span>,
+    <span class="str">'a'</span>: <span class="kw">self</span>.<span class="fn">calculate_max_area_faces</span>,
+}
+
+<span class="kw">self</span>.longest_faces <span class="op">=</span> <span class="kw">self</span>.FLAGS[flag]()
+<span class="kw">self</span>.seed_tetra <span class="op">=</span> <span class="kw">self</span>.<span class="fn">calculate_seed_tetrahedrons</span>()
+<span class="kw">self</span>.bitvector_frontier_faces <span class="op">=</span> <span class="kw">self</span>.<span class="fn">calculate_frontier_faces</span>()
+
+<span class="kw">self</span>.visited_tetra <span class="op">=</span> [<span class="kw">False</span>] <span class="op">*</span> mesh.n_tetrahedrons
+<span class="kw">self</span>.polyhedral_mesh <span class="op">=</span> []</code></pre></div>
+  <p><code>longest_faces</code> no contiene índices globales de caras. Para cada tetraedro contiene un índice local entre <code>0</code> y <code>3</code>, que indica cuál de sus cuatro caras fue seleccionada.</p>
+
+  <h2>5. Métricas de caras</h2>
+  <p>El programa no usa una única definición de “mejor cara”. El parámetro <code>flag</code> selecciona la estrategia:</p>
+  <table>
+    <thead><tr><th>Flag</th><th>Método</th><th>Idea</th></tr></thead>
+    <tbody>
+      <tr><td><code>r</code></td><td><code>calculate_max_incircle_faces</code></td><td>Compara una expresión del radio inscrito.</td></tr>
+      <tr><td><code>R</code></td><td><code>calculate_max_circumcircle_faces</code></td><td>Compara el radio circunscrito.</td></tr>
+      <tr><td><code>tra</code></td><td><code>calculate_max_triangle_aspect_faces</code></td><td>Indicador de calidad basado en área y arista máxima.</td></tr>
+      <tr><td><code>are1</code>, <code>are2</code></td><td>Indicadores de aspecto alternativos.</td><td>Usan combinaciones de aristas, área y semiperímetro.</td></tr>
+      <tr><td><code>a</code></td><td><code>calculate_max_area_faces</code></td><td>Selecciona la cara de mayor área.</td></tr>
+    </tbody>
+  </table>
+  <div class="code-wrap"><span class="code-label">Área triangular</span><pre><code><span class="cm"># A = 1/2 * norma((v2 - v1) x (v3 - v1))</span>
+area <span class="op">=</span> np.<span class="fn">linalg.norm</span>(np.<span class="fn">cross</span>(av2 <span class="op">-</span> av1, av3 <span class="op">-</span> av1))
+face.area <span class="op">=</span> area <span class="op">*</span> <span class="num">0.5</span></code></pre></div>
+  <p class="callout"><strong>Lectura del algoritmo:</strong> una vez calculado el valor de cada cara, el programa compara las cuatro caras de cada tetraedro y guarda la posición de la mayor. Los empates se resuelven con la primera coincidencia.</p>
+
+  <h2>6. Caras frontera y tetraedros semilla</h2>
+  <p><code>calculate_frontier_faces</code> crea un vector booleano del tamaño de <code>face_list</code>. Una cara es frontera si está en el borde de la malla o si ninguno de sus tetraedros la eligió como cara máxima.</p>
+  <div class="code-wrap"><span class="code-label">Fronteras</span><pre><code><span class="kw">if</span> n1 <span class="op">==</span> <span class="num">-1</span> <span class="kw">or</span> n2 <span class="op">==</span> <span class="num">-1</span>:
+    frontier_faces.<span class="fn">append</span>(<span class="kw">True</span>)
+<span class="kw">else</span>:
+    frontier_faces.<span class="fn">append</span>(
+        f <span class="op">!=</span> longest_face_n1 <span class="kw">and</span> f <span class="op">!=</span> longest_face_n2
+    )</code></pre></div>
+  <p>Después, <code>calculate_seed_tetrahedrons</code> localiza tetraedros desde los que puede comenzar un grupo. Busca caras de borde o caras que fueron seleccionadas por ambos tetraedros vecinos.</p>
+
+  <h2>7. DFS: cómo se forman los poliedros</h2>
+  <p><code>DepthFirstSearch</code> parte de un tetraedro semilla. Marca el tetraedro como visitado y examina sus cuatro caras:</p>
+  <ul>
+    <li>Si la cara es frontera, se añade a la superficie del poliedro.</li>
+    <li>Si es interna, se cruza hacia el tetraedro vecino.</li>
+    <li>Si el vecino ya fue visitado, no se repite el recorrido.</li>
+  </ul>
+  <div class="code-wrap"><span class="code-label">Recorrido</span><pre><code><span class="kw">def</span> <span class="fn">DepthFirstSearch</span>(self, polyhedron, polyhedron_tetras, tetra):
+    <span class="kw">self</span>.visited_tetra[tetra] <span class="op">=</span> <span class="kw">True</span>
+    polyhedron_tetras.<span class="fn">append</span>(tetra)
+
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">4</span>):
+        face_id <span class="op">=</span> <span class="kw">self</span>.mesh.tetra_list[tetra].faces[i]
+        <span class="kw">if</span> <span class="kw">self</span>.bitvector_frontier_faces[face_id]:
+            polyhedron.<span class="fn">append</span>(face_id)
+        <span class="kw">else</span>:
+            next_tetra <span class="op">=</span> <span class="kw">self</span>.mesh.tetra_list[tetra].neighs[i]
+            <span class="kw">if</span> <span class="kw">not</span> <span class="kw">self</span>.visited_tetra[next_tetra]:
+                <span class="kw">self</span>.<span class="fn">DepthFirstSearch</span>(
+                    polyhedron, polyhedron_tetras, next_tetra
+                )</code></pre></div>
+  <p>La pareja <code>polyhedron_tetras</code> / <code>polyhedron</code> acumula respectivamente los tetraedros interiores y las caras que delimitan el resultado.</p>
+
+  <h2>8. Caras barrera y reparación</h2>
+  <p>Una cara frontera repetida dentro de un mismo poliedro indica una “barrera”: la superficie se ha plegado o se ha encontrado con una configuración que necesita dividirse.</p>
+  <div class="code-wrap"><span class="code-label">Detección</span><pre><code><span class="kw">def</span> <span class="fn">count_barrierFaces</span>(self, polyhedron):
+    repeated <span class="op">=</span> [k <span class="kw">for</span> k, v <span class="kw">in</span> Counter(polyhedron).<span class="fn">items</span>() <span class="kw">if</span> v <span class="op">&gt;</span> <span class="num">1</span>]
+    <span class="kw">if</span> <span class="fn">len</span>(repeated) <span class="op">&gt;</span> <span class="num">0</span>:
+        <span class="kw">self</span>.n_barrier_faces <span class="op">+=</span> <span class="fn">len</span>(repeated)
+        <span class="kw">self</span>.polyhedra_with_barriers <span class="op">+=</span> <span class="num">1</span>
+    <span class="kw">return</span> <span class="fn">len</span>(repeated)</code></pre></div>
+  <p><code>detectBarrierFaceTips</code> obtiene las aristas de las caras repetidas y busca una arista que pueda servir como punto de separación. <code>repairPhase</code> convierte una cara interna adecuada en nueva frontera y vuelve a ejecutar un DFS desde los tetraedros afectados.</p>
+  <p class="callout"><strong>Resultado:</strong> los poliedros reparados se marcan con <code>was_repaired = True</code>. La reparación no cambia los archivos de TetGen; cambia únicamente la agrupación que mantiene PolyllaFace en memoria.</p>
+
+  <h2>9. Exportación y análisis</h2>
+  <div class="grid">
+    <section class="card"><h3><code>printOFF_polyhedralmesh</code></h3><p>Escribe una superficie OFF con los vértices de la malla y las caras de cada poliedro. También ajusta la orientación de las caras con <code>ccw_check</code>.</p></section>
+    <section class="card"><h3><code>printOFF_each_poly</code></h3><p>Genera un OFF por poliedro, usando solo los vértices que pertenecen a sus tetraedros.</p></section>
+    <section class="card"><h3><code>printVISF_polyhedralmesh</code></h3><p>Escribe una representación VISF que conserva la lista de poliedros y sus caras.</p></section>
+    <section class="card"><h3><code>writePolygonFile</code></h3><p>Guarda una descripción textual de los poliedros no convexos.</p></section>
+  </div>
+  <p><code>get_info</code> resume la ejecución: número de poliedros, barreras, poliedros reparados, poliedros que siguen siendo tetraedros, caras y aristas utilizadas.</p>
+
+  <h2>10. El bloque <code>main</code></h2>
+  <p>Cuando se ejecuta el archivo directamente, el bloque final selecciona una malla por su nombre base:</p>
+  <div class="code-wrap"><span class="code-label">src/PolyllaFace.py</span><pre><code><span class="kw">if</span> __name__ <span class="op">==</span> <span class="str">"__main__"</span>:
+    folder <span class="op">=</span> <span class="str">"data\\"</span>
+    file <span class="op">=</span> <span class="str">"1000random.1"</span>
+    filename <span class="op">=</span> folder <span class="op">+</span> file
+
+    node_file <span class="op">=</span> filename <span class="op">+</span> <span class="str">".node"</span>
+    ele_file <span class="op">=</span> filename <span class="op">+</span> <span class="str">".ele"</span>
+    face_file <span class="op">=</span> filename <span class="op">+</span> <span class="str">".face"</span>
+
+    mesh <span class="op">=</span> <span class="fn">FaceTetrahedronMesh</span>(node_file, face_file, ele_file)
+    polylla_mesh <span class="op">=</span> <span class="fn">PolyllaFace</span>(mesh)
+    polylla_mesh.<span class="fn">printOFF_polyhedralmesh</span>(filename <span class="op">+</span> <span class="str">"_polyhedral_mesh.off"</span>)
+    polylla_mesh.<span class="fn">get_info</span>()</code></pre></div>
+  <p>Se ejecuta desde la raíz del proyecto:</p>
+  <div class="code-wrap"><span class="code-label">PowerShell</span><pre><code>python src/PolyllaFace.py</code></pre></div>
+  <p>Para cambiar de conjunto, basta con modificar <code>file</code> a <code>1000poisson.1</code>, <code>1000semiuniform.1</code> o <code>1000uniform.1</code>. No se debe añadir otra vez <code>.node</code>, porque el programa lo agrega automáticamente.</p>
+
+  <h2>11. Uso desde un notebook</h2>
+  <div class="code-wrap"><span class="code-label">Python</span><pre><code><span class="kw">from</span> src.newMesh <span class="kw">import</span> FaceTetrahedronMesh
+<span class="kw">from</span> src.PolyllaFace <span class="kw">import</span> PolyllaFace
+
+bases <span class="op">=</span> [<span class="str">"1000random.1"</span>, <span class="str">"1000poisson.1"</span>, <span class="str">"1000semiuniform.1"</span>, <span class="str">"1000uniform.1"</span>]
+
+<span class="kw">for</span> base <span class="kw">in</span> bases:
+    prefix <span class="op">=</span> <span class="str">"data/"</span> <span class="op">+</span> base
+    mesh <span class="op">=</span> <span class="fn">FaceTetrahedronMesh</span>(
+        prefix <span class="op">+</span> <span class="str">".node"</span>,
+        prefix <span class="op">+</span> <span class="str">".face"</span>,
+        prefix <span class="op">+</span> <span class="str">".ele"</span>,
+    )
+    polylla <span class="op">=</span> <span class="fn">PolyllaFace</span>(mesh, flag<span class="op">=</span><span class="str">"r"</span>)
+    polylla.<span class="fn">get_info</span>()
+    polylla.<span class="fn">printOFF_polyhedralmesh</span>(
+        prefix <span class="op">+</span> <span class="str">"_polyhedral_mesh.off"</span>
+    )</code></pre></div>
+
+  <h2>12. Qué observar en una ejecución</h2>
+  <ul>
+    <li class="check">“Reading vertex/face/tetra file”: la entrada fue encontrada y leída.</li>
+    <li class="check">“Tetraedralization ready”: la conectividad de la malla se construyó.</li>
+    <li class="check">“Number of polyhedrons”: la agrupación terminó.</li>
+    <li class="check">“writing OFF file”: se creó la superficie para inspección en MeshLab o PyVista.</li>
+  </ul>
+  <div class="callout"><strong>Nota geométrica:</strong> <code>FaceTetrahedronMesh</code> guarda la longitud de una arista como distancia al cuadrado. El comportamiento actual funciona con los datos probados, pero las métricas que interpretan ese valor como longitud deben considerarse una convención específica de este proyecto.</div>
+
+  <footer>
+    Documento generado para el estado actual de <code>src/PolyllaFace.py</code> y <code>src/newMesh.py</code>. Los fragmentos son extractos explicativos; el código ejecutable permanece en el proyecto.
+  </footer>
+</main>
+</body>
+</html>
