@@ -875,8 +875,7 @@ class PolyllaFace:
         max_tetra_num = max(tetras)
         i = tetras.index(max_tetra_num)
         # print(tetras)
-        self.printOFF_one_poly(i,'BiggestPoly/'+str(self.mesh.n_nodes)+self.flag+'.off')
-
+        self.printOFF_one_poly(i,str(self.mesh.n_nodes)+self.flag)
         return [mean_tetra_num, min_tetra_num, max_tetra_num,median_tetra_num,variance_tetra_num]
     
     def faces_per_poly(self):
@@ -1040,25 +1039,34 @@ class PolyllaFace:
 
 
 if __name__ == "__main__":
-    folder = "data\\"
-    #file = "3D_100.1"
-    #file = "socket.1"
-    file = "1000random.1"
-    filename = folder + file 
-    node_file = filename + ".node"
-    ele_file = filename + ".ele"
-    face_file = filename + ".face"
-    edge_file = filename + ".edge"
-    print("reading files" + node_file + edge_file + face_file + edge_file)
-    mesh = FaceTetrahedronMesh(node_file, face_file, ele_file)
+    from pathlib import Path
+    
+    # Define the project root and data paths
+    PROJECT_ROOT = Path(__file__).parent.parent  # Go up from src/ to project root
+    input_folder = PROJECT_ROOT / "data" / "input"
+    output_folder = PROJECT_ROOT / "data" / "output"
+    
+    # Create output folder if it doesn't exist
+    output_folder.mkdir(parents=True, exist_ok=True)
+    
+    # File configuration
+    # file can be "1000points.1", "1000poisson.1", "1000random.1", "1000semiuniform.1", "1000uniform.1". 
+    # Number of points can vary
+    file = "1000uniform.1"
+    node_file = input_folder / f"{file}.node"
+    ele_file = input_folder / f"{file}.ele"
+    face_file = input_folder / f"{file}.face"
+    edge_file = input_folder / f"{file}.edge"
+    
+    print(f"Reading files from: {input_folder}")
+    print(f"Writing files to: {output_folder}")
+    
+    mesh = FaceTetrahedronMesh(str(node_file), str(face_file), str(ele_file))
     polylla_mesh = PolyllaFace(mesh)
-
     
-    polylla_mesh.printOFF_polyhedralmesh(filename + "_polyhedral_mesh.off")
-    #polylla_mesh.printOFF_faces(filename + "_frontier_faces.off", sorted(set([num for sublist in polylla_mesh.polyhedral_mesh for num in sublist])))
-    #for i in range(0, len(polylla_mesh.polyhedral_mesh)):
-    #    #print(polylla_mesh.polyhedral_mesh[i])
-    #    polylla_mesh.printOFF_faces(folder + file + "_PolyllaFACE_polyhedron_" + str(i) + ".off", polylla_mesh.polyhedral_mesh[i])
+    # Write output files to data/output/
+    polylla_mesh.printOFF_polyhedralmesh(str(output_folder / f"{file}_polyhedral_mesh.off"))
+    polylla_mesh.printOFF_polyhedralmesh_colors(str(output_folder / f"{file}_polyhedral_mesh_colors.visf"))
+    polylla_mesh.printVISF_polyhedralmesh(str(output_folder / f"{file}_polyhedral_mesh.visf"))
     
-
     polylla_mesh.get_info()
