@@ -607,35 +607,52 @@ class PolyllaFace:
                     v3 = self.mesh.face_list[f.i].v3
                     fh.write("3 %d %d %d\n" % (v1, v2, v3))
 
+# Revisar vs anterior colores
     def printOFF_polyhedralmesh_colors(self, filename):
-        print("writing OFF file: "+ filename)
+        print("writing OFF file: " + filename)
         list_face = []
-        nodes = []
-        colors = []
+
+        # Center the mesh around the centroid
+        centroid_x = sum(v.x for v in self.mesh.node_list) / len(self.mesh.node_list)
+        centroid_y = sum(v.y for v in self.mesh.node_list) / len(self.mesh.node_list)
+        centroid_z = sum(v.z for v in self.mesh.node_list) / len(self.mesh.node_list)
+
         for polyhedron in self.polyhedral_mesh:
-            color = [random.random(),random.random(),random.random()]
-            if(len(polyhedron.faces) != 4):
-                for face in polyhedron.faces: 
-                    list_face.append(face)
-                    colors.append(color)
-                # else:
-                #     colors.append([0.8,0.8,0.8,0.5])
-        #list_face =  list(dict.fromkeys(list_face))
+            for face in polyhedron.faces:
+                t = self.mesh.face_list[face].n1 if (self.mesh.face_list[face].n1 in polyhedron.tetras) else self.mesh.face_list[face].n2
+                if not ccw_check(self.mesh.face_list[face], self.mesh.tetra_list[t], self.mesh.node_list):
+                    v2 = self.mesh.face_list[face].v2
+                    v3 = self.mesh.face_list[face].v3
+                    self.mesh.face_list[face].v2 = v3
+                    self.mesh.face_list[face].v3 = v2
+                list_face.append(face)
+
+        list_face = list(dict.fromkeys(list_face))
+
         with open(filename, 'w') as fh:
             fh.write("OFF\n")
             fh.write("%d %d 0\n" % (self.mesh.n_nodes, len(list_face)))
             for v in self.mesh.node_list:
-                fh.write("%f %f %f\n" % (v.x, v.y, v.z))
-            # print(len(colors[0]), len(list_face))
+                fh.write("%f %f %f\n" % (
+                    (v.x - centroid_x) * 100,
+                    (v.y - centroid_y) * 100,
+                    (v.z - centroid_z) * 100
+                ))
             for f in list_face:
                 v1 = self.mesh.face_list[f].v1
                 v2 = self.mesh.face_list[f].v2
                 v3 = self.mesh.face_list[f].v3
-                fh.write("3 %d %d %d 3 .4 .5 .1\n" % (v1, v2, v3))#, colors[f][0],colors[f][1],colors[f][2]))
+                fh.write("3 %d %d %d 3 0.8 0.8 0.8\n" % (v1, v2, v3))
 
     def printOFF_polyhedralmesh(self, filename):
         print("writing OFF file: "+ filename)
         list_face = []
+        
+        # Calculate centroid
+        centroid_x = sum(v.x for v in self.mesh.node_list) / len(self.mesh.node_list)
+        centroid_y = sum(v.y for v in self.mesh.node_list) / len(self.mesh.node_list)
+        centroid_z = sum(v.z for v in self.mesh.node_list) / len(self.mesh.node_list)
+        
         for polyhedron in self.polyhedral_mesh:
             for face in polyhedron.faces:
                 t = self.mesh.face_list[face].n1 if (self.mesh.face_list[face].n1 in polyhedron.tetras) else self.mesh.face_list[face].n2
@@ -647,45 +664,56 @@ class PolyllaFace:
                     self.mesh.face_list[face].v3 = v2
                 list_face.append(face)
         list_face =  list(dict.fromkeys(list_face))
+        
         with open(filename, 'w') as fh:
             fh.write("OFF\n")
             fh.write("%d %d 0\n" % (self.mesh.n_nodes, len(list_face)))
             for v in self.mesh.node_list:
-                fh.write("%f %f %f\n" % (v.x*100, v.y*100, v.z*100))
+                fh.write("%f %f %f\n" % ((v.x - centroid_x)*100, (v.y - centroid_y)*100, (v.z - centroid_z)*100))
             for f in list_face:
-
                 v1 = self.mesh.face_list[f].v1
                 v2 = self.mesh.face_list[f].v2
                 v3 = self.mesh.face_list[f].v3
-
                 fh.write("3 %d %d %d\n" % (v1, v2, v3))
 
     def printVISF_polyhedralmesh(self, filename):
-        print("writing VISF file: "+ filename)
+        print("writing VISF file: " + filename)
         list_face = []
+
+        # Center the mesh around the centroid
+        centroid_x = sum(v.x for v in self.mesh.node_list) / len(self.mesh.node_list)
+        centroid_y = sum(v.y for v in self.mesh.node_list) / len(self.mesh.node_list)
+        centroid_z = sum(v.z for v in self.mesh.node_list) / len(self.mesh.node_list)
+
         for polyhedron in self.polyhedral_mesh:
             for face in polyhedron.faces:
                 t = self.mesh.face_list[face].n1 if (self.mesh.face_list[face].n1 in polyhedron.tetras) else self.mesh.face_list[face].n2
-                if not ccw_check(self.mesh.face_list[face], self.mesh.tetra_list[t],self.mesh.node_list):
-                    # print('check face', face)
+                if not ccw_check(self.mesh.face_list[face], self.mesh.tetra_list[t], self.mesh.node_list):
                     v2 = self.mesh.face_list[face].v2
                     v3 = self.mesh.face_list[face].v3
                     self.mesh.face_list[face].v2 = v3
                     self.mesh.face_list[face].v3 = v2
                 list_face.append(face)
-        list_face =  list(dict.fromkeys(list_face))
+
+        list_face = list(dict.fromkeys(list_face))
+
         with open(filename, 'w') as fh:
             fh.write("2 2\n")
             fh.write("%d\n" % (self.mesh.n_nodes))
             for v in self.mesh.node_list:
-                fh.write("%f %f %f\n" % (v.x*100, v.y*100, v.z*100))
+                fh.write("%f %f %f\n" % (
+                    (v.x - centroid_x) * 100,
+                    (v.y - centroid_y) * 100,
+                    (v.z - centroid_z) * 100
+                ))
+
             fh.write("%d\n" % (len(list_face)))
             for f in list_face:
                 v1 = self.mesh.face_list[f].v1
                 v2 = self.mesh.face_list[f].v2
                 v3 = self.mesh.face_list[f].v3
-
                 fh.write("3 %d %d %d\n" % (v1, v2, v3))
+
             fh.write("%d\n" % (len(self.polyhedral_mesh)))
             for poly in self.polyhedral_mesh:
                 fh.write("%d" % (len(poly.faces)))
@@ -1052,7 +1080,7 @@ if __name__ == "__main__":
     # File configuration
     # file can be "1000points.1", "1000poisson.1", "1000random.1", "1000semiuniform.1", "1000uniform.1". 
     # Number of points can vary
-    file = "1000uniform.1"
+    file = "8uniform.1"
     node_file = input_folder / f"{file}.node"
     ele_file = input_folder / f"{file}.ele"
     face_file = input_folder / f"{file}.face"
