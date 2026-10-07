@@ -217,29 +217,6 @@ class PolyllaFace:
     def calculate_max_area_faces(self):
         return self.select_largest_faces([face.area for face in self.mesh.face_list])
 
-    # Retorna la cara maś larga como objeto cara
-    def calculate_terminal_faces(self):
-        terminal_faces = []
-        for tetra in range(0, self.mesh.n_tetrahedrons):
-                    
-            # Get the longest face of tetrahedron tetra 
-            longest_face_curr = self.mesh.tetra_list[tetra].faces[self.longest_faces[tetra]]
-
-            #Calculate the tetrahedron neigh by their longest face
-            neigh_index = self.mesh.tetra_list[tetra].neighs[self.longest_faces[tetra]]
-
-            #Check which is the longest face of the neigh tetrahedron
-            longest_face_neigh = self.mesh.tetra_list[neigh_index].faces[self.longest_faces[neigh_index]]
-
-            #if the base is border or If both faces are equal, then their are the terminal face.
-            if longest_face_neigh == -1 or longest_face_curr == longest_face_neigh:
-                terminal_faces.append(longest_face_curr)
-
-        #remove duplicates to avoid repeated faces
-        terminal_faces = list(dict.fromkeys(terminal_faces))
-
-        return terminal_faces
-
     def calculate_seed_tetrahedrons(self):
         seed_tetra = []
         for f in range(0, self.mesh.n_faces):
@@ -247,17 +224,15 @@ class PolyllaFace:
             n1 = self.mesh.face_list[f].n1
             n2 = self.mesh.face_list[f].n2
 
-            #if n1 is -1, check if n2 is the longest face of its tetrahedron
-            if n1 == -1 and self.mesh.tetra_list[n2].faces[self.longest_faces[n2]] == f:
-                seed_tetra.append(n2)
-            #if n2 is -1, check if n1 is the longest face of its tetrahedron
-            elif n2 == -1 and self.mesh.tetra_list[n1].faces[self.longest_faces[n1]] == f:
-                seed_tetra.append(n1)
-            #if both are not -1, check if n1 and n2 are the longest face of its tetrahedron
+            # Boundary face: seed if it is the largest face of its only tetrahedron
+            if n1 == -1 or n2 == -1:
+                t = n2 if n1 == -1 else n1
+                if self.mesh.tetra_list[t].faces[self.longest_faces[t]] == f:
+                    seed_tetra.append(t)
+            # Terminal face: largest face of both tetrahedra
             else:
                 longest_face_n1 = self.mesh.tetra_list[n1].faces[self.longest_faces[n1]]
                 longest_face_n2 = self.mesh.tetra_list[n2].faces[self.longest_faces[n2]]
-                # Si no es la cara más larga de ningún tetra de n1 o n2, es una frontier-edge
                 if f == longest_face_n1 and f == longest_face_n2:
                     seed_tetra.append(n1)
         # print(seed_tetra)
@@ -277,22 +252,9 @@ class PolyllaFace:
             else: 
                 longest_face_n1 = self.mesh.tetra_list[n1].faces[self.longest_faces[n1]]
                 longest_face_n2 = self.mesh.tetra_list[n2].faces[self.longest_faces[n2]]
-                
-                is_frontier = (f != longest_face_n1 and f != longest_face_n2)
-                
-                if is_frontier:
-                    print(
-                        "Barrier face:",
-                        f,
-                        "tetrahedra:",
-                        n1,
-                        n2,
-                        "edges:",
-                        self.mesh.face_list[f].edges
-                    )
 
-                # Si no es la cara más larga de ningún tetra de n1 o n2, es una frontier-edge
-                frontier_faces.append(is_frontier)
+                # Si no es la cara más larga de ningún tetra de n1 o n2, es una frontier-face
+                frontier_faces.append(f != longest_face_n1 and f != longest_face_n2)
             
         return frontier_faces
 
@@ -727,6 +689,33 @@ class PolyllaFace:
                 c+=1
 
 
+    # Topological checks of the polyhedral mesh. Returns the number of errors;
+    # non-manifold edges are reported but not counted (algorithm limitation).
+    def validate(self):
+        membership = Counter(t for poly in self.polyhedral_mesh for t in poly.tetras)
+        lost = [t for t in range(self.mesh.n_tetrahedrons) if membership[t] == 0]
+        repeated = [t for t, n in membership.items() if n > 1]
+        internal_faces = []   # both tetrahedra of a face inside the polyhedron
+        open_polys = []       # some surface edge used an odd number of times
+        non_manifold = []     # some surface edge shared by more than two faces
+        for i, poly in enumerate(self.polyhedral_mesh):
+            tetras = set(poly.tetras)
+            faces = set(poly.faces)
+            if any(self.mesh.face_list[f].n1 in tetras and self.mesh.face_list[f].n2 in tetras for f in faces):
+                internal_faces.append(i)
+            edge_count = Counter(e for f in faces for e in self.mesh.face_list[f].edges)
+            if any(c % 2 for c in edge_count.values()):
+                open_polys.append(i)
+            elif any(c > 2 for c in edge_count.values()):
+                non_manifold.append(i)
+        print("Validation:")
+        print("Lost tetrahedra:", len(lost), lost[:10])
+        print("Tetrahedra in more than one polyhedron:", len(repeated), repeated[:10])
+        print("Polyhedra with internal faces:", len(internal_faces), internal_faces[:10])
+        print("Open polyhedra:", len(open_polys), open_polys[:10])
+        print("Polyhedra with non-manifold edges:", len(non_manifold), non_manifold[:10])
+        return len(lost) + len(repeated) + len(internal_faces) + len(open_polys)
+
     def get_info(self):
         print("PolyllaFace info:")
         print("Number of polyhedrons: " + str(len(self.polyhedral_mesh)))
@@ -992,51 +981,8 @@ if __name__ == "__main__":
     
     mesh = FaceTetrahedronMesh(str(node_file), str(face_file), str(ele_file), str(edge_file))
     polylla_mesh = PolyllaFace(mesh)
-    
-    for poly_index, polyhedron in enumerate(polylla_mesh.polyhedral_mesh):
-        tetra_ids = set(polyhedron.tetras)
-        print(
-            f"Polyhedron {poly_index}: "
-            f"tetras={sorted(tetra_ids)}, "
-            f"faces={sorted(polyhedron.faces)}"
-        )
-        
-        boundary_edge_counts = Counter()
-        
-        for face_id in set(polyhedron.faces):
-            face = mesh.face_list[face_id]
-            
-            for edge_id in face.edges:
-                boundary_edge_counts[edge_id] += 1
-                
-        for edge_id, count in boundary_edge_counts.items():
-            if count != 2:
-                print(
-                    "WARNING: arista superficial inválida",
-                    "polyhedron=", poly_index,
-                    "edge=", edge_id,
-                    "count=", count,
-                    "faces", [
-                        face_id 
-                        for face_id in polyhedron.faces 
-                        if edge_id in mesh.face_list[face_id].edges
-                    ]
-                )
-            
-            incident_inside = sum(
-                tetra_id in tetra_ids for tetra_id in (face.n1, face.n2) if tetra_id != -1
-            )
-            
-            if incident_inside != 1:
-                print(
-                    "WARNING:",
-                    "face=", face_id,
-                    "n1=", face.n1,
-                    "n2=", face.n2,
-                    "inside=", incident_inside,
-                    "polyhedron=", poly_index
-                )
-    
+    polylla_mesh.validate()
+
     # Write output files to data/output/
     polylla_mesh.printOFF_polyhedralmesh(str(output_folder / f"{file}_polyhedral_mesh.off"))
     polylla_mesh.printOFF_polyhedralmesh_colors(str(output_folder / f"{file}_polyhedral_mesh_colors.visf"))
