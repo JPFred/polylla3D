@@ -71,7 +71,7 @@ class PolyllaEdge:
             edge_list.extend(self.mesh.tetra_list[tetra].edges)
         #Only repeated edges are revised
         edge_list = [k for k, v in Counter(edge_list).items() if v > 1]
-        # For each repead edge
+        # For each repeated edge
         new_polyhedrons = []
         flag = False
         for edge in edge_list:
