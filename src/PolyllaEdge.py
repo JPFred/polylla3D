@@ -8,16 +8,18 @@ from pathlib import Path
 # Allow imports to work both as a package and as a direct script
 try:
     from .newMesh import EdgeTetrahedronMesh, Polyhedron
+    from .polylla_mesh import PolyllaMesh
 except ImportError:
     sys.path.insert(0, str(Path(__file__).parent))
     from newMesh import EdgeTetrahedronMesh, Polyhedron
+    from polylla_mesh import PolyllaMesh
 
 
-class PolyllaEdge:
+class PolyllaEdge(PolyllaMesh):
     # separate_hanging=False builds every polyhedron as it is (simple or not);
     # True splits the non simple ones with Algorithm 10 (later stage)
     def __init__(self, mesh, separate_hanging=False):
-        self.mesh = mesh
+        super().__init__(mesh)
         # Label phase
         self.longest_edges = self.calculate_longest_edges()
         self.sorted_edges = self.sort_edges_by_length()
@@ -26,7 +28,6 @@ class PolyllaEdge:
         # tetrahedra around it that were not used by a previous edge
         self.used_tetra = [False] * mesh.n_tetrahedrons
         self.polyhedra_with_hanging = 0
-        self.polyhedral_mesh = []
         for e in self.sorted_edges:
             polyhedron_tetras = self.join_around_edge(e)
             if not polyhedron_tetras:
@@ -67,7 +68,7 @@ class PolyllaEdge:
 # JOINING PHASE
 #############################################################################################
 
-  # Unused tetrahedra around edge e, marked as used
+    # Unused tetrahedra around edge e, marked as used
     def join_around_edge(self, e):
         polyhedron_tetras = [t for t in self.mesh.edge_list[e].tetrahedrons
                              if not self.used_tetra[t]]
@@ -105,3 +106,50 @@ class PolyllaEdge:
         if closed and len(runs) > 1 and ring[0] in inside and ring[-1] in inside:
             runs[0] = runs.pop() + runs[0]
         return runs
+
+#############################################################################################
+# EXTRA
+#############################################################################################
+
+    def get_info(self):
+        print("PolyllaEdge info:")
+        print("Number of polyhedrons: " + str(len(self.polyhedral_mesh)))
+        print("Number of polyhedra with hanging parts: " + str(self.polyhedra_with_hanging))
+        count = sum(1 for poly in self.polyhedral_mesh if len(poly.tetras) == 1)
+        faces = set()
+        edges = set()
+        for poly in self.polyhedral_mesh:
+            faces.update(poly.faces)
+            for f in poly.faces:
+                edges.update(self.mesh.face_list[f].edges)
+        print("Number of polyhedrons that are tetrahedrons: " + str(count))
+        print("Number of mesh faces: ", len(faces))
+        print("Number of mesh edges:", len(edges))
+        return len(self.polyhedral_mesh), self.polyhedra_with_hanging, count, len(faces), len(edges)
+
+
+if __name__ == "__main__":
+    PROJECT_ROOT = Path(__file__).parent.parent
+    input_folder = PROJECT_ROOT / "data" / "input"
+    output_folder = PROJECT_ROOT / "data" / "output"
+    output_folder.mkdir(parents=True, exist_ok=True)
+
+    # file can be "1000points.1", "1000poisson.1", "1000random.1", "1000semiuniform.1", "1000uniform.1"
+    file = "1000random.1"
+    separate_hanging = False
+    node_file = input_folder / f"{file}.node"
+    ele_file = input_folder / f"{file}.ele"
+    face_file = input_folder / f"{file}.face"
+    edge_file = input_folder / f"{file}.edge"
+
+    print(f"Reading files from: {input_folder}")
+    print(f"Writing files to: {output_folder}")
+
+    mesh = EdgeTetrahedronMesh(str(node_file), str(face_file), str(ele_file), str(edge_file))
+    polylla_mesh = PolyllaEdge(mesh, separate_hanging)
+    polylla_mesh.validate()
+
+    polylla_mesh.printVISF_polyhedralmesh(str(output_folder / f"{file}_edge_polyhedral_mesh.visf"))
+    polylla_mesh.printVISF_camaron(str(output_folder / f"{file}_edge_polyhedral_mesh_camaron.visf"))
+
+    polylla_mesh.get_info()
