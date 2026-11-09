@@ -14,29 +14,38 @@ except ImportError:
 
 
 class PolyllaEdge:
-    def __init__(self, mesh):
+    # separate_hanging=False builds every polyhedron as it is (simple or not);
+    # True splits the non simple ones with Algorithm 10 (later stage)
+    def __init__(self, mesh, separate_hanging=False):
         self.mesh = mesh
         # Label phase
         self.longest_edges = self.calculate_longest_edges()
         self.sorted_edges = self.sort_edges_by_length()
 
-        # Joining phase
-        self.visited_tetra = [False] * mesh.n_tetrahedrons
+        # Joining phase: each edge, from longest to shortest, takes the
+        # tetrahedra around it that were not used by a previous edge
+        self.used_tetra = [False] * mesh.n_tetrahedrons
         self.polyhedra_with_hanging = 0
         self.polyhedral_mesh = []
         for e in self.sorted_edges:
-            polyhedron_tetras = self.DepthFirstSearch(e)
-            if polyhedron_tetras:
-                # Repair phase: split parts joined only by edge e
-                parts = self.separate_hanging_polyhedra(e, polyhedron_tetras)
-                if len(parts) > 1:
-                    self.polyhedra_with_hanging += 1
-                for tetras in parts:
-                    poly = Polyhedron()
-                    poly.tetras = tetras
-                    poly.faces = self.polyhedron_faces(tetras)
-                    poly.was_repaired = len(parts) > 1
-                    self.polyhedral_mesh.append(poly)
+            polyhedron_tetras = self.join_around_edge(e)
+            if not polyhedron_tetras:
+                continue
+            # Parts joined only by edge e (non simple polyhedron)
+            parts = self.separate_hanging_polyhedra(e, polyhedron_tetras)
+            has_hanging = len(parts) > 1
+            if has_hanging:
+                self.polyhedra_with_hanging += 1
+            if not separate_hanging:
+                parts = [polyhedron_tetras]
+            for tetras in parts:
+                poly = Polyhedron()
+                poly.tetras = tetras
+                poly.faces = self.polyhedron_faces(tetras)
+                poly.edge = e
+                poly.has_hanging = has_hanging
+                poly.was_repaired = has_hanging and separate_hanging
+                self.polyhedral_mesh.append(poly)
 
 #############################################################################################
 # LABEL PHASE
@@ -58,20 +67,12 @@ class PolyllaEdge:
 # JOINING PHASE
 #############################################################################################
 
-    # Algorithm 9 (iterative): joins the unvisited tetrahedra around edge e and,
-    # from each of them, the tetrahedra around its own longest edge
-    def DepthFirstSearch(self, e):
-        polyhedron_tetras = []
-        stack = [e]
-        while stack:
-            edge = stack.pop()
-            for tetra in self.mesh.edge_list[edge].tetrahedrons:
-                if not self.visited_tetra[tetra]:
-                    self.visited_tetra[tetra] = True
-                    polyhedron_tetras.append(tetra)
-                    e_max = self.longest_edges[tetra]
-                    if e_max != edge:
-                        stack.append(e_max)
+  # Unused tetrahedra around edge e, marked as used
+    def join_around_edge(self, e):
+        polyhedron_tetras = [t for t in self.mesh.edge_list[e].tetrahedrons
+                             if not self.used_tetra[t]]
+        for t in polyhedron_tetras:
+            self.used_tetra[t] = True
         return polyhedron_tetras
 
     # Faces of the polyhedron: faces that belong to only one of its tetrahedra

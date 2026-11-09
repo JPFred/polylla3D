@@ -100,6 +100,7 @@ class PolyllaFace:
             q = L_max*(length_edge_a + length_edge_b + length_edge_c) / (4 * sqrt(3) * area) # type: ignore
             aspects.append(area / q)
         return self.select_largest_faces(aspects)
+    
     # aspect ratio for triangles from paper A Survey of Indicators for Mesh Quality Assessment
     def calculate_max_aspect_ratio_e1_faces(self):
         # self.calculate_edges_length()
@@ -368,7 +369,7 @@ class PolyllaFace:
             tetra = face.n2 if face.n1 == tetra else face.n1
             prev_face = next_face
 
-    # Algorithm 8 (thesis), plus: repeated repair of non-simple results (section 4.1.2)
+    # Algorithm 8, plus: repeated repair of non-simple results (section 4.1.2)
     # and deletion of barrier faces when they can not be split (Algorithm 13).
     def repairPhase(self, polyhedron, polyhedron_tetras):
         seeds = []
