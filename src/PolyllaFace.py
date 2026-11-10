@@ -730,9 +730,9 @@ if __name__ == "__main__":
     polylla_mesh.validate()
 
     # Write output files to data/output/
-    polylla_mesh.printOFF_polyhedralmesh(str(output_folder / f"{file}_polyhedral_mesh.off"))
-    polylla_mesh.printOFF_polyhedralmesh_colors(str(output_folder / f"{file}_polyhedral_mesh_colors.visf"))
-    polylla_mesh.printVISF_polyhedralmesh(str(output_folder / f"{file}_polyhedral_mesh.visf"))
-    polylla_mesh.printVISF_camaron(str(output_folder / f"{file}_polyhedral_mesh_camaron.visf"))
+    polylla_mesh.printOFF_polyhedralmesh(str(output_folder / f"{file}_face_polyhedral_mesh.off"))
+    polylla_mesh.printOFF_polyhedralmesh_colors(str(output_folder / f"{file}_face_polyhedral_mesh_colors.visf"))
+    polylla_mesh.printVISF_polyhedralmesh(str(output_folder / f"{file}_face_polyhedral_mesh.visf"))
+    polylla_mesh.printVISF_camaron(str(output_folder / f"{file}_face_polyhedral_mesh_camaron.visf"))
 
     polylla_mesh.get_info()
