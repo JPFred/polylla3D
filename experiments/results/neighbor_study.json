@@ -1,0 +1,494 @@
+[
+  {
+    "malla": "1000semiuniform",
+    "params": {
+      "q": 2.0,
+      "a": 0.00038
+    },
+    "puntos": 1027,
+    "tetraedros": 4711,
+    "caras": 9925,
+    "aristas": 6240,
+    "poliedros": 2220,
+    "solos": 852,
+    "colgantes": 47,
+    "cara": {
+      "solo": 734,
+      "poliedro": 2340,
+      "borde": 334
+    },
+    "combos": {
+      "3P 1S 0B": 226,
+      "4P 0S 0B": 196,
+      "2P 1S 1B": 120,
+      "3P 0S 1B": 108,
+      "2P 2S 0B": 102,
+      "1P 2S 1B": 44,
+      "1P 3S 0B": 21,
+      "2P 0S 2B": 17,
+      "1P 1S 2B": 11,
+      "0P 3S 1B": 4,
+      "0P 4S 0B": 2,
+      "0P 2S 2B": 1
+    },
+    "poliedros_distintos": {
+      "0": 7,
+      "1": 78,
+      "2": 257,
+      "3": 345,
+      "4": 165
+    },
+    "arista_por_rango": {
+      "1": {
+        "todos poliedros": 571,
+        "mixto": 256,
+        "todos solos": 17,
+        "sin otros": 8
+      },
+      "2": {
+        "mixto": 438,
+        "todos poliedros": 383,
+        "todos solos": 30,
+        "sin otros": 1
+      },
+      "3": {
+        "mixto": 430,
+        "todos poliedros": 365,
+        "todos solos": 48,
+        "sin otros": 9
+      },
+      "4": {
+        "mixto": 462,
+        "todos poliedros": 325,
+        "sin otros": 8,
+        "todos solos": 57
+      },
+      "5": {
+        "mixto": 447,
+        "todos poliedros": 340,
+        "sin otros": 3,
+        "todos solos": 62
+      },
+      "6": {
+        "todos poliedros": 277,
+        "mixto": 546,
+        "todos solos": 29
+      }
+    },
+    "solos_con_arista_todos_solos": 199,
+    "aristas_candidatas": 107,
+    "aristas_candidatas_cerradas": 5,
+    "solos_cubiertos_por_candidatas": 199
+  },
+  {
+    "malla": "5000semiuniform",
+    "params": {
+      "q": 2.0,
+      "a": 6.95e-05
+    },
+    "puntos": 5030,
+    "tetraedros": 25992,
+    "caras": 53590,
+    "aristas": 32627,
+    "poliedros": 11849,
+    "solos": 4372,
+    "colgantes": 266,
+    "cara": {
+      "borde": 1067,
+      "poliedro": 12885,
+      "solo": 3536
+    },
+    "combos": {
+      "3P 1S 0B": 1390,
+      "4P 0S 0B": 1312,
+      "2P 2S 0B": 546,
+      "2P 1S 1B": 424,
+      "3P 0S 1B": 406,
+      "1P 2S 1B": 107,
+      "1P 3S 0B": 102,
+      "2P 0S 2B": 43,
+      "0P 4S 0B": 16,
+      "1P 1S 2B": 14,
+      "0P 3S 1B": 8,
+      "0P 2S 2B": 4
+    },
+    "poliedros_distintos": {
+      "0": 28,
+      "1": 227,
+      "2": 1069,
+      "3": 1870,
+      "4": 1178
+    },
+    "arista_por_rango": {
+      "1": {
+        "todos poliedros": 3035,
+        "todos solos": 67,
+        "mixto": 1270
+      },
+      "2": {
+        "todos poliedros": 2066,
+        "mixto": 2164,
+        "todos solos": 139,
+        "sin otros": 3
+      },
+      "3": {
+        "todos poliedros": 1815,
+        "mixto": 2383,
+        "todos solos": 159,
+        "sin otros": 15
+      },
+      "4": {
+        "mixto": 2398,
+        "todos poliedros": 1810,
+        "sin otros": 27,
+        "todos solos": 137
+      },
+      "5": {
+        "todos poliedros": 1773,
+        "mixto": 2463,
+        "todos solos": 123,
+        "sin otros": 13
+      },
+      "6": {
+        "todos poliedros": 1570,
+        "mixto": 2726,
+        "todos solos": 73,
+        "sin otros": 3
+      }
+    },
+    "solos_con_arista_todos_solos": 603,
+    "aristas_candidatas": 313,
+    "aristas_candidatas_cerradas": 21,
+    "solos_cubiertos_por_candidatas": 603
+  },
+  {
+    "malla": "10000semiuniform",
+    "params": {
+      "q": 2.0,
+      "a": 3.3e-05
+    },
+    "puntos": 10201,
+    "tetraedros": 54691,
+    "caras": 112063,
+    "aristas": 67572,
+    "poliedros": 24801,
+    "solos": 9142,
+    "colgantes": 535,
+    "cara": {
+      "borde": 1910,
+      "poliedro": 26730,
+      "solo": 7928
+    },
+    "combos": {
+      "3P 1S 0B": 3019,
+      "4P 0S 0B": 2722,
+      "2P 2S 0B": 1307,
+      "2P 1S 1B": 790,
+      "3P 0S 1B": 629,
+      "1P 3S 0B": 270,
+      "1P 2S 1B": 244,
+      "2P 0S 2B": 79,
+      "1P 1S 2B": 32,
+      "0P 4S 0B": 28,
+      "0P 3S 1B": 19,
+      "0P 2S 2B": 3
+    },
+    "poliedros_distintos": {
+      "0": 50,
+      "1": 559,
+      "2": 2280,
+      "3": 3825,
+      "4": 2428
+    },
+    "arista_por_rango": {
+      "1": {
+        "todos poliedros": 6166,
+        "mixto": 2759,
+        "todos solos": 142,
+        "sin otros": 75
+      },
+      "2": {
+        "todos poliedros": 4146,
+        "mixto": 4701,
+        "todos solos": 285,
+        "sin otros": 10
+      },
+      "3": {
+        "sin otros": 13,
+        "mixto": 5014,
+        "todos poliedros": 3770,
+        "todos solos": 345
+      },
+      "4": {
+        "mixto": 5181,
+        "todos poliedros": 3611,
+        "todos solos": 348,
+        "sin otros": 2
+      },
+      "5": {
+        "mixto": 5375,
+        "todos poliedros": 3494,
+        "todos solos": 268,
+        "sin otros": 5
+      },
+      "6": {
+        "todos poliedros": 3113,
+        "mixto": 5843,
+        "todos solos": 177,
+        "sin otros": 9
+      }
+    },
+    "solos_con_arista_todos_solos": 1280,
+    "aristas_candidatas": 681,
+    "aristas_candidatas_cerradas": 59,
+    "solos_cubiertos_por_candidatas": 1280
+  },
+  {
+    "malla": "1000random",
+    "params": {
+      "tolerancia": 0.1,
+      "semilla": 1
+    },
+    "puntos": 993,
+    "tetraedros": 4843,
+    "caras": 10168,
+    "aristas": 6317,
+    "poliedros": 2725,
+    "solos": 1409,
+    "colgantes": 21,
+    "cara": {
+      "borde": 311,
+      "solo": 2136,
+      "poliedro": 3189
+    },
+    "combos": {
+      "3P 1S 0B": 374,
+      "2P 2S 0B": 374,
+      "1P 3S 0B": 169,
+      "4P 0S 0B": 167,
+      "2P 1S 1B": 120,
+      "1P 2S 1B": 81,
+      "3P 0S 1B": 44,
+      "0P 4S 0B": 35,
+      "0P 3S 1B": 25,
+      "2P 0S 2B": 10,
+      "1P 1S 2B": 8,
+      "0P 2S 2B": 1,
+      "1P 0S 3B": 1
+    },
+    "poliedros_distintos": {
+      "0": 61,
+      "1": 308,
+      "2": 567,
+      "3": 373,
+      "4": 100
+    },
+    "arista_por_rango": {
+      "1": {
+        "sin otros": 10,
+        "todos poliedros": 672,
+        "todos solos": 66,
+        "mixto": 661
+      },
+      "2": {
+        "todos poliedros": 366,
+        "todos solos": 94,
+        "mixto": 949
+      },
+      "3": {
+        "todos poliedros": 247,
+        "mixto": 1056,
+        "todos solos": 104,
+        "sin otros": 2
+      },
+      "4": {
+        "todos solos": 127,
+        "todos poliedros": 233,
+        "mixto": 1046,
+        "sin otros": 3
+      },
+      "5": {
+        "mixto": 1123,
+        "todos poliedros": 195,
+        "todos solos": 89,
+        "sin otros": 2
+      },
+      "6": {
+        "todos solos": 104,
+        "todos poliedros": 198,
+        "mixto": 1102,
+        "sin otros": 5
+      }
+    },
+    "solos_con_arista_todos_solos": 469,
+    "aristas_candidatas": 220,
+    "aristas_candidatas_cerradas": 81,
+    "solos_cubiertos_por_candidatas": 469
+  },
+  {
+    "malla": "5000random",
+    "params": {
+      "tolerancia": 0.05,
+      "semilla": 1
+    },
+    "puntos": 4996,
+    "tetraedros": 28831,
+    "caras": 59040,
+    "aristas": 35204,
+    "poliedros": 16403,
+    "solos": 8606,
+    "colgantes": 158,
+    "cara": {
+      "solo": 13446,
+      "borde": 1053,
+      "poliedro": 19925
+    },
+    "combos": {
+      "3P 1S 0B": 2494,
+      "2P 2S 0B": 2441,
+      "1P 3S 0B": 1217,
+      "4P 0S 0B": 1171,
+      "2P 1S 1B": 389,
+      "0P 4S 0B": 282,
+      "1P 2S 1B": 281,
+      "3P 0S 1B": 181,
+      "0P 3S 1B": 99,
+      "1P 1S 2B": 25,
+      "2P 0S 2B": 16,
+      "0P 2S 2B": 9,
+      "1P 0S 3B": 1
+    },
+    "poliedros_distintos": {
+      "0": 390,
+      "1": 1770,
+      "2": 3299,
+      "3": 2485,
+      "4": 662
+    },
+    "arista_por_rango": {
+      "1": {
+        "sin otros": 25,
+        "todos solos": 459,
+        "todos poliedros": 4046,
+        "mixto": 4076
+      },
+      "2": {
+        "todos solos": 564,
+        "todos poliedros": 2272,
+        "mixto": 5769,
+        "sin otros": 1
+      },
+      "3": {
+        "todos solos": 653,
+        "mixto": 6421,
+        "todos poliedros": 1529,
+        "sin otros": 3
+      },
+      "4": {
+        "mixto": 6670,
+        "todos solos": 684,
+        "todos poliedros": 1248,
+        "sin otros": 4
+      },
+      "5": {
+        "mixto": 7121,
+        "todos solos": 555,
+        "todos poliedros": 925,
+        "sin otros": 5
+      },
+      "6": {
+        "mixto": 7312,
+        "todos solos": 509,
+        "todos poliedros": 770,
+        "sin otros": 15
+      }
+    },
+    "solos_con_arista_todos_solos": 2581,
+    "aristas_candidatas": 1094,
+    "aristas_candidatas_cerradas": 608,
+    "solos_cubiertos_por_candidatas": 2581
+  },
+  {
+    "malla": "10000random",
+    "params": {
+      "tolerancia": 0.05,
+      "semilla": 1
+    },
+    "puntos": 9993,
+    "tetraedros": 57694,
+    "caras": 118085,
+    "aristas": 70383,
+    "poliedros": 32276,
+    "solos": 16623,
+    "colgantes": 398,
+    "cara": {
+      "borde": 1680,
+      "poliedro": 39382,
+      "solo": 25430
+    },
+    "combos": {
+      "3P 1S 0B": 5083,
+      "2P 2S 0B": 4886,
+      "4P 0S 0B": 2283,
+      "1P 3S 0B": 2274,
+      "2P 1S 1B": 719,
+      "0P 4S 0B": 465,
+      "1P 2S 1B": 426,
+      "3P 0S 1B": 340,
+      "0P 3S 1B": 100,
+      "2P 0S 2B": 27,
+      "1P 1S 2B": 16,
+      "0P 2S 2B": 3,
+      "1P 0S 3B": 1
+    },
+    "poliedros_distintos": {
+      "0": 568,
+      "1": 3220,
+      "2": 6530,
+      "3": 5017,
+      "4": 1288
+    },
+    "arista_por_rango": {
+      "1": {
+        "sin otros": 18,
+        "todos solos": 594,
+        "todos poliedros": 7936,
+        "mixto": 8075
+      },
+      "2": {
+        "todos solos": 833,
+        "mixto": 11304,
+        "todos poliedros": 4485,
+        "sin otros": 1
+      },
+      "3": {
+        "todos poliedros": 3009,
+        "todos solos": 956,
+        "mixto": 12654,
+        "sin otros": 4
+      },
+      "4": {
+        "todos solos": 1165,
+        "mixto": 12881,
+        "todos poliedros": 2573,
+        "sin otros": 4
+      },
+      "5": {
+        "mixto": 13821,
+        "todos poliedros": 1903,
+        "todos solos": 898,
+        "sin otros": 1
+      },
+      "6": {
+        "mixto": 14098,
+        "todos solos": 908,
+        "todos poliedros": 1596,
+        "sin otros": 21
+      }
+    },
+    "solos_con_arista_todos_solos": 4376,
+    "aristas_candidatas": 1728,
+    "aristas_candidatas_cerradas": 1018,
+    "solos_cubiertos_por_candidatas": 4376
+  }
+]
