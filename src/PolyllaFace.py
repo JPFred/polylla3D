@@ -170,7 +170,7 @@ class PolyllaFace(PolyllaMesh):
 # LABEL PHASE
 #############################################################################################
 
-    #Calculate length of each edge
+    # Calculate length of each edge
     def calculate_edges_length(self):
         for edge in self.mesh.edge_list:
             v1 = self.mesh.node_list[edge.v1]
@@ -269,7 +269,7 @@ class PolyllaFace(PolyllaMesh):
     def DepthFirstSearch(self, polyhedron, polyhedron_tetras, tetra):
         self.visited_tetra[tetra] = True
         polyhedron_tetras.append(tetra)
-        # not_fronteir_index = 0
+        # not_frontier_index = 0
         ## for each face of tetra
         for i in range(0, 4):
             face_id = self.mesh.tetra_list[tetra].faces[i]
@@ -480,7 +480,7 @@ class PolyllaFace(PolyllaMesh):
                 edges.update(face.edges)
         print("Number of polyhedrons that are tetrahedrons: " + str(count))
         print("Number of mesh faces: " , len(list(faces)))
-        print("Numbre of mesh edges:", len(list(edges)))
+        print("Number of mesh edges:", len(list(edges)))
         return len(self.polyhedral_mesh), self.n_barrier_faces, self.polyhedra_with_barriers, count, len(list(faces)), len(list(edges))
 
 #############################################################################################
@@ -716,7 +716,7 @@ if __name__ == "__main__":
     # File configuration
     # file can be "1000points.1", "1000poisson.1", "1000random.1", "1000semiuniform.1", "1000uniform.1". 
     # Number of points can vary
-    file = "1000uniform.1"
+    file = "27uniform.1"
     node_file = input_folder / f"{file}.node"
     ele_file = input_folder / f"{file}.ele"
     face_file = input_folder / f"{file}.face"

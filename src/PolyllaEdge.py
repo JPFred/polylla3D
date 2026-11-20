@@ -1,5 +1,5 @@
-# Polylla 3D Edge (thesis of Magdalena Alvarez, section 3.3.2): tetrahedra
-# are joined by their longest edge and hanging polyhedra are then separated.
+# Polylla 3D Edge: tetrahedra are joined by their longest edge and 
+# hanging polyhedra are then separated.
 
 import sys
 from collections import Counter
@@ -18,11 +18,13 @@ except ImportError:
 class PolyllaEdge(PolyllaMesh):
     # separate_hanging=False builds every polyhedron as it is (simple or not);
     # True splits the non simple ones with Algorithm 10 (later stage)
-    def __init__(self, mesh, separate_hanging=False):
+    def __init__(self, mesh, separate_hanging=False, verbose=False):
         super().__init__(mesh)
         # Label phase
         self.longest_edges = self.calculate_longest_edges()
         self.sorted_edges = self.sort_edges_by_length()
+        if verbose:
+            self.check_edge_order()
 
         # Joining phase: each edge, from longest to shortest, takes the
         # tetrahedra around it that were not used by a previous edge
@@ -31,6 +33,8 @@ class PolyllaEdge(PolyllaMesh):
         for e in self.sorted_edges:
             polyhedron_tetras = self.join_around_edge(e)
             if not polyhedron_tetras:
+                if verbose:
+                    self.print_join_step(e, polyhedron_tetras, [])
                 continue
             # Parts joined only by edge e (non simple polyhedron)
             parts = self.separate_hanging_polyhedra(e, polyhedron_tetras)
@@ -39,6 +43,7 @@ class PolyllaEdge(PolyllaMesh):
                 self.polyhedra_with_hanging += 1
             if not separate_hanging:
                 parts = [polyhedron_tetras]
+            first_poly = len(self.polyhedral_mesh)
             for tetras in parts:
                 poly = Polyhedron()
                 poly.tetras = tetras
@@ -47,6 +52,9 @@ class PolyllaEdge(PolyllaMesh):
                 poly.has_hanging = has_hanging
                 poly.was_repaired = has_hanging and separate_hanging
                 self.polyhedral_mesh.append(poly)
+            if verbose:
+                self.print_join_step(e, polyhedron_tetras,
+                                     range(first_poly, len(self.polyhedral_mesh)))
 
 #############################################################################################
 # LABEL PHASE
@@ -111,6 +119,31 @@ class PolyllaEdge(PolyllaMesh):
 # EXTRA
 #############################################################################################
 
+    # Debug: checks that edges go from longest to shortest
+    def check_edge_order(self):
+        lengths = [self.mesh.edge_list[e].length for e in self.sorted_edges]
+        ok = all(a >= b for a, b in zip(lengths, lengths[1:]))
+        print(f"Edges sorted from longest to shortest: {'OK' if ok else 'ERROR'}")
+
+    # Debug: what edge e took, what was already used and the polyhedra it built
+    def print_join_step(self, e, polyhedron_tetras, new_polys):
+        edge = self.mesh.edge_list[e]
+        ring = edge.tetrahedrons
+        boundary = " (boundary)" if len(edge.faces) != len(ring) else ""
+        print(f"e{e} v{edge.v1}-v{edge.v2} L={edge.length:.4f}{boundary} ring={ring}")
+        if not polyhedron_tetras:
+            print("    no free tetrahedra")
+            return
+        used_before = [t for t in ring if t not in polyhedron_tetras]
+        print(f"    takes {polyhedron_tetras}, already used {used_before}")
+        not_longest = [t for t in polyhedron_tetras if self.longest_edges[t] != e]
+        if not_longest:
+            print(f"    WARNING: e{e} is not the longest edge of {not_longest}")
+        for k in new_polys:
+            tetras = self.polyhedral_mesh[k].tetras
+            single = "  <- single tetrahedron" if len(tetras) == 1 else ""
+            print(f"    -> polyhedron {k}: {tetras}{single}")
+
     def get_info(self):
         print("PolyllaEdge info:")
         print("Number of polyhedrons: " + str(len(self.polyhedral_mesh)))
@@ -135,8 +168,9 @@ if __name__ == "__main__":
     output_folder.mkdir(parents=True, exist_ok=True)
 
     # file can be "1000points.1", "1000poisson.1", "1000random.1", "1000semiuniform.1", "1000uniform.1"
-    file = "1000random.1"
+    file = "27random.1"
     separate_hanging = False
+    verbose = True
     node_file = input_folder / f"{file}.node"
     ele_file = input_folder / f"{file}.ele"
     face_file = input_folder / f"{file}.face"
@@ -146,7 +180,7 @@ if __name__ == "__main__":
     print(f"Writing files to: {output_folder}")
 
     mesh = EdgeTetrahedronMesh(str(node_file), str(face_file), str(ele_file), str(edge_file))
-    polylla_mesh = PolyllaEdge(mesh, separate_hanging)
+    polylla_mesh = PolyllaEdge(mesh, separate_hanging, verbose)
     polylla_mesh.validate()
 
     polylla_mesh.printVISF_polyhedralmesh(str(output_folder / f"{file}_edge_polyhedral_mesh.visf"))
