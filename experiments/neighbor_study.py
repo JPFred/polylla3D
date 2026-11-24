@@ -27,7 +27,7 @@ BOX = np.array([[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 1],
 
 # Parametros (los del notebook 3D-samplegeneration para cada tamano)
 RANDOM = {1000: 0.1, 5000: 0.05, 10000: 0.05}             # tolerancia de borde
-SEMIUNIFORM = {1000: 0.00038, 5000: 0.0000695, 10000: 0.000033}  # volumen max (-a)
+QUALITY = {1000: 0.00038, 5000: 0.0000695, 10000: 0.000033}  # volumen max (-a)
 SEED = 1
 
 
@@ -50,9 +50,9 @@ def random_mesh(n, tol):
     return OUT / f"{name}.1"
 
 
-def semiuniform_mesh(n, vol):
+def quality_mesh(n, vol):
     # Cubo unitario como PLC; TetGen con calidad por defecto (-q, radio-arista 2.0)
-    name = f"{n}semiuniform"  # sin puntos en el nombre: TetGen corta en el primer '.'
+    name = f"{n}quality"  # sin puntos en el nombre: TetGen corta en el primer '.'
     with open(OUT / f"{name}.poly", "w") as f:
         f.write("8 3 0 0\n")
         for i, p in enumerate(BOX):
@@ -200,8 +200,8 @@ def report(rs):
 
 if __name__ == "__main__":
     results = []
-    for n, vol in SEMIUNIFORM.items():
-        results.append(study(semiuniform_mesh(n, vol), f"{n}semiuniform", {"q": 2.0, "a": vol}))
+    for n, vol in QUALITY.items():
+        results.append(study(quality_mesh(n, vol), f"{n}quality", {"q": 2.0, "a": vol}))
         print("listo", results[-1]["malla"], flush=True)
     for n, tol in RANDOM.items():
         results.append(study(random_mesh(n, tol), f"{n}random", {"tolerancia": tol, "semilla": SEED}))

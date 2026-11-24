@@ -7,6 +7,6 @@ Quality experiments for Polylla 3D Face and Edge.
 - analysis.ipynb (pending): builds tables and figures from results/ and
   compares them with legacy/results/ (Magdalena's original results).
 - neighbor_study.py: face and edge neighbors of the single-tetrahedron
-  polyhedra of PolyllaEdge (semiuniform and random meshes, 1000-10000
+  polyhedra of PolyllaEdge (quality and random meshes, 1000-10000
   points). Writes results/neighbor_study.json.
 - results/: JSON results, versioned.

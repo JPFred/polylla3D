@@ -1,6 +1,6 @@
 [
   {
-    "malla": "1000semiuniform",
+    "malla": "1000quality",
     "params": {
       "q": 2.0,
       "a": 0.00038
@@ -81,7 +81,7 @@
     "solos_cubiertos_por_candidatas": 199
   },
   {
-    "malla": "5000semiuniform",
+    "malla": "5000quality",
     "params": {
       "q": 2.0,
       "a": 6.95e-05
@@ -162,7 +162,7 @@
     "solos_cubiertos_por_candidatas": 603
   },
   {
-    "malla": "10000semiuniform",
+    "malla": "10000quality",
     "params": {
       "q": 2.0,
       "a": 3.3e-05
