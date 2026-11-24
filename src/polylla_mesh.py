@@ -221,6 +221,21 @@ class PolyllaMesh:
             for indices in poly_faces:
                 fh.write("%d %s\n" % (len(indices), " ".join(map(str, indices))))
 
+    # Companion text file for Camaron: one line per polyhedron, in the same order
+    # (and therefore with the same id) as in the VISF files, listing its tetrahedra.
+    # Only for visualization; it does not change the polyhedral mesh.
+    def printPolyhedraIndex_camaron(self, filename):
+        print("writing polyhedra index (Camaron): " + filename)
+        with open(filename, 'w') as fh:
+            fh.write("# id n_tetras tetrahedra flags\n")
+            for i, poly in enumerate(self.polyhedral_mesh):
+                flags = [name for name in ("was_merged", "has_hanging", "was_repaired")
+                         if getattr(poly, name, False)]
+                if len(poly.tetras) == 1:
+                    flags.append("single")
+                tetras = " ".join(map(str, poly.tetras))
+                fh.write(f"{i} {len(poly.tetras)} [{tetras}] {' '.join(flags)}\n")
+
     def printOFF_each_poly(self,filename):
         # print("writing OFF files: "+ filename)
         i = 0
