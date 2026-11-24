@@ -22,6 +22,15 @@ def face_area(mesh, f):
     return face.area
 
 
+# Shape quality of face f: 4*sqrt(3)*area / (sum of squared edge lengths).
+# It is in (0, 1] and equals 1 only for an equilateral triangle.
+def face_equilaterality(mesh, f):
+    face = mesh.face_list[f]
+    a, b, c = (vertex_coords(mesh, v) for v in (face.v1, face.v2, face.v3))
+    squared = np.dot(b - a, b - a) + np.dot(c - b, c - b) + np.dot(a - c, a - c)
+    return 4.0 * np.sqrt(3.0) * face_area(mesh, f) / squared
+
+
 # Faces of the polyhedron: faces that belong to only one of its tetrahedra
 def polyhedron_faces(mesh, tetras):
     counts = Counter(f for t in tetras for f in mesh.tetra_list[t].faces)

@@ -7,18 +7,19 @@ from pathlib import Path
 
 # Allow imports to work both as a package and as a direct script
 try:
-    from .metrics import solidity
+    from .metrics import face_area, face_equilaterality, solidity
 except ImportError:
     sys.path.insert(0, str(Path(__file__).parent))
-    from metrics import solidity
+    from metrics import face_area, face_equilaterality, solidity
 
 
 class MergeCriterion(ABC):
     name = "criterion"
 
-    # Score of the polyhedron formed by tetras; higher is better
+    # Score of merging tetrahedron t into a polyhedron: tetras is the resulting
+    # polyhedron and shared_faces the faces t shares with it. Higher is better.
     @abstractmethod
-    def score(self, mesh, tetras):
+    def score(self, mesh, tetras, t, shared_faces):
         pass
 
 
@@ -26,5 +27,21 @@ class MergeCriterion(ABC):
 class ConvexityCriterion(MergeCriterion):
     name = "convexity"
 
-    def score(self, mesh, tetras):
+    def score(self, mesh, tetras, t, shared_faces):
         return solidity(mesh, tetras)
+
+
+# Neighbor across the largest face of t
+class LargestFaceCriterion(MergeCriterion):
+    name = "largest_face"
+
+    def score(self, mesh, tetras, t, shared_faces):
+        return max(face_area(mesh, f) for f in shared_faces)
+
+
+# Neighbor across the most equilateral face of t
+class EquilateralFaceCriterion(MergeCriterion):
+    name = "equilateral_face"
+
+    def score(self, mesh, tetras, t, shared_faces):
+        return max(face_equilaterality(mesh, f) for f in shared_faces)

@@ -185,7 +185,7 @@ class PolyllaEdge(PolyllaMesh):
             if self.non_manifold_edges(polyhedron_faces(self.mesh, tetras)) > self.non_manifold_edges(poly.faces):
                 evaluated.append((k, None, area))
                 continue
-            score = criterion.score(self.mesh, tetras)
+            score = criterion.score(self.mesh, tetras, t, shared)
             evaluated.append((k, score, area))
             key = (round(score, 9), area, -k)
             if best_key is None or key > best_key:
