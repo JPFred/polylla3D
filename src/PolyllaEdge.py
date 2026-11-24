@@ -9,16 +9,20 @@ from pathlib import Path
 try:
     from .newMesh import EdgeTetrahedronMesh, Polyhedron
     from .polylla_mesh import PolyllaMesh
+    from .metrics import face_area, polyhedron_faces
+    from .merge_criteria import ConvexityCriterion
 except ImportError:
     sys.path.insert(0, str(Path(__file__).parent))
     from newMesh import EdgeTetrahedronMesh, Polyhedron
     from polylla_mesh import PolyllaMesh
+    from metrics import face_area, polyhedron_faces
+    from merge_criteria import ConvexityCriterion
 
 
 class PolyllaEdge(PolyllaMesh):
     # separate_hanging=False builds every polyhedron as it is (simple or not);
     # True splits the non simple ones with Algorithm 10 (later stage)
-    def __init__(self, mesh, separate_hanging=False, verbose=False):
+    def __init__(self, mesh, separate_hanging=False, verbose=False, merge_criterion=None):
         super().__init__(mesh)
         # Label phase
         self.longest_edges = self.calculate_longest_edges()
@@ -47,7 +51,7 @@ class PolyllaEdge(PolyllaMesh):
             for tetras in parts:
                 poly = Polyhedron()
                 poly.tetras = tetras
-                poly.faces = self.polyhedron_faces(tetras)
+                poly.faces = polyhedron_faces(self.mesh, tetras)
                 poly.edge = e
                 poly.has_hanging = has_hanging
                 poly.was_repaired = has_hanging and separate_hanging
@@ -55,6 +59,14 @@ class PolyllaEdge(PolyllaMesh):
             if verbose:
                 self.print_join_step(e, polyhedron_tetras,
                                      range(first_poly, len(self.polyhedral_mesh)))
+
+        # Merge phase: single tetrahedra are merged into a face neighbor
+        # chosen by merge_criterion (None skips this phase)
+        self.merged_singles = 0      # single tetrahedra merged into another polyhedron
+        self.paired_singles = 0      # merges where the target was also a single tetrahedron
+        self.unmerged_singles = 0    # single tetrahedra with no valid candidate
+        if merge_criterion is not None:
+            self.merge_single_tetrahedra(merge_criterion, verbose)
 
 #############################################################################################
 # LABEL PHASE
@@ -84,11 +96,6 @@ class PolyllaEdge(PolyllaMesh):
             self.used_tetra[t] = True
         return polyhedron_tetras
 
-    # Faces of the polyhedron: faces that belong to only one of its tetrahedra
-    def polyhedron_faces(self, polyhedron_tetras):
-        counts = Counter(f for t in polyhedron_tetras for f in self.mesh.tetra_list[t].faces)
-        return [f for f, c in counts.items() if c == 1]
-
 #############################################################################################
 # REPAIR PHASE
 #############################################################################################
@@ -114,6 +121,81 @@ class PolyllaEdge(PolyllaMesh):
         if closed and len(runs) > 1 and ring[0] in inside and ring[-1] in inside:
             runs[0] = runs.pop() + runs[0]
         return runs
+
+#############################################################################################
+# MERGE PHASE
+#############################################################################################
+
+    # Each single tetrahedron, in creation order, is merged into the face neighbor
+    # polyhedron with the best criterion score. If that neighbor is also a single
+    # tetrahedron, both leave the pending list.
+    def merge_single_tetrahedra(self, criterion, verbose=False):
+        poly_of = {t: k for k, poly in enumerate(self.polyhedral_mesh) for t in poly.tetras}
+        order = [poly.tetras[0] for poly in self.polyhedral_mesh if len(poly.tetras) == 1]
+        pending = set(order)
+        if verbose:
+            print(f"Merge phase ({criterion.name}):")
+        for t in order:
+            if t not in pending:
+                if verbose:
+                    print(f"t{t} skipped (already merged)")
+                continue
+            pending.discard(t)
+            k, evaluated = self.best_merge(t, poly_of, criterion)
+            if verbose:
+                self.print_merge_step(t, poly_of[t], evaluated, k)
+            if k is None:
+                self.unmerged_singles += 1
+                continue
+            target = self.polyhedral_mesh[k]
+            if len(target.tetras) == 1:
+                pending.discard(target.tetras[0])
+                self.paired_singles += 1
+            self.polyhedral_mesh[poly_of[t]] = None
+            target.tetras = target.tetras + [t]
+            target.faces = polyhedron_faces(self.mesh, target.tetras)
+            target.was_merged = True
+            poly_of[t] = k
+            self.merged_singles += 1
+        self.polyhedral_mesh = [poly for poly in self.polyhedral_mesh if poly is not None]
+        if verbose:
+            print(f"Merged {self.merged_singles}, paired {self.paired_singles}, unmerged {self.unmerged_singles}")
+
+    # Polyhedra next to tetrahedron t, each with the faces it shares with t
+    def merge_candidates(self, t, poly_of):
+        shared = {}
+        for f in self.mesh.tetra_list[t].faces:
+            face = self.mesh.face_list[f]
+            other = face.n2 if face.n1 == t else face.n1
+            if other != -1:
+                shared.setdefault(poly_of[other], []).append(f)
+        return shared
+
+    # Best candidate by (score, shared face area, lowest polyhedron id); candidates
+    # that add non-manifold edges are discarded. Returns the chosen polyhedron (None
+    # if there is no valid candidate) and the evaluated candidates as
+    # (polyhedron, score, shared area), with score None when discarded.
+    def best_merge(self, t, poly_of, criterion):
+        best, best_key = None, None
+        evaluated = []
+        for k, shared in self.merge_candidates(t, poly_of).items():
+            poly = self.polyhedral_mesh[k]
+            tetras = poly.tetras + [t]
+            area = sum(face_area(self.mesh, f) for f in shared)
+            if self.non_manifold_edges(polyhedron_faces(self.mesh, tetras)) > self.non_manifold_edges(poly.faces):
+                evaluated.append((k, None, area))
+                continue
+            score = criterion.score(self.mesh, tetras)
+            evaluated.append((k, score, area))
+            key = (round(score, 9), area, -k)
+            if best_key is None or key > best_key:
+                best, best_key = k, key
+        return best, evaluated
+
+    # Surface edges shared by more than two faces
+    def non_manifold_edges(self, faces):
+        counts = Counter(e for f in faces for e in self.mesh.face_list[f].edges)
+        return sum(1 for c in counts.values() if c > 2)
 
 #############################################################################################
 # EXTRA
@@ -144,6 +226,28 @@ class PolyllaEdge(PolyllaMesh):
             single = "  <- single tetrahedron" if len(tetras) == 1 else ""
             print(f"    -> polyhedron {k}: {tetras}{single}")
 
+    # Debug: candidates evaluated for single tetrahedron t and the chosen one
+    def print_merge_step(self, t, own, evaluated, chosen):
+        parts = []
+        for k, score, area in evaluated:
+            size = len(self.polyhedral_mesh[k].tetras)
+            label = f"P{k} [{'single' if size == 1 else f'{size} tets'}]"
+            if score is None:
+                parts.append(f"{label} rejected (non-manifold)")
+            else:
+                parts.append(f"{label} score={score:.4f} area={area:.4f}")
+        print(f"t{t} (polyhedron {own}): " + (" | ".join(parts) if parts else "no candidates"))
+        if chosen is None:
+            print("    -> stays single")
+            return
+        target = self.polyhedral_mesh[chosen].tetras
+        result = target + [t]
+        if len(target) == 1:
+            print(f"    -> merged into polyhedron {chosen}, now tetrahedra {result} "
+                  f"(single t{target[0]}: both leave the list)")
+        else:
+            print(f"    -> merged into polyhedron {chosen}, now tetrahedra {result}")
+
     def get_info(self):
         print("PolyllaEdge info:")
         print("Number of polyhedrons: " + str(len(self.polyhedral_mesh)))
@@ -156,6 +260,8 @@ class PolyllaEdge(PolyllaMesh):
             for f in poly.faces:
                 edges.update(self.mesh.face_list[f].edges)
         print("Number of polyhedrons that are tetrahedrons: " + str(count))
+        print(f"Single tetrahedra merged: {self.merged_singles} (paired: {self.paired_singles}), "
+              f"unmerged: {self.unmerged_singles}")
         print("Number of mesh faces: ", len(faces))
         print("Number of mesh edges:", len(edges))
         return len(self.polyhedral_mesh), self.polyhedra_with_hanging, count, len(faces), len(edges)
@@ -167,10 +273,11 @@ if __name__ == "__main__":
     output_folder = PROJECT_ROOT / "data" / "output"
     output_folder.mkdir(parents=True, exist_ok=True)
 
-    # file can be "1000points.1", "1000poisson.1", "1000random.1", "1000semiuniform.1", "1000uniform.1"
-    file = "27random.1"
+    # file can be "27uniform.1", "43quality.1", ... (quality meshes: experiments/generate_quality_meshes.py)
+    file = "43quality.1"
     separate_hanging = False
     verbose = True
+    merge_criterion = ConvexityCriterion()   # None to skip the merge phase
     node_file = input_folder / f"{file}.node"
     ele_file = input_folder / f"{file}.ele"
     face_file = input_folder / f"{file}.face"
@@ -180,10 +287,11 @@ if __name__ == "__main__":
     print(f"Writing files to: {output_folder}")
 
     mesh = EdgeTetrahedronMesh(str(node_file), str(face_file), str(ele_file), str(edge_file))
-    polylla_mesh = PolyllaEdge(mesh, separate_hanging, verbose)
+    polylla_mesh = PolyllaEdge(mesh, separate_hanging, verbose, merge_criterion)
     polylla_mesh.validate()
 
     polylla_mesh.printVISF_polyhedralmesh(str(output_folder / f"{file}_edge_polyhedral_mesh.visf"))
     polylla_mesh.printVISF_camaron(str(output_folder / f"{file}_edge_polyhedral_mesh_camaron.visf"))
+    polylla_mesh.printPolyhedraIndex_camaron(str(output_folder / f"{file}_edge_polyhedra_camaron.txt"))
 
     polylla_mesh.get_info()
