@@ -7,10 +7,10 @@ from pathlib import Path
 
 # Allow imports to work both as a package and as a direct script
 try:
-    from .metrics import face_area, face_equilaterality, solidity
+    from .metrics import face_area, face_equilaterality, kernel_ratio, solidity
 except ImportError:
     sys.path.insert(0, str(Path(__file__).parent))
-    from metrics import face_area, face_equilaterality, solidity
+    from metrics import face_area, face_equilaterality, kernel_ratio, solidity
 
 
 class MergeCriterion(ABC):
@@ -45,3 +45,11 @@ class EquilateralFaceCriterion(MergeCriterion):
 
     def score(self, mesh, tetras, t, shared_faces):
         return max(face_equilaterality(mesh, f) for f in shared_faces)
+
+
+# Result with the largest kernel relative to its volume (kernel ratio)
+class KernelCriterion(MergeCriterion):
+    name = "kernel"
+
+    def score(self, mesh, tetras, t, shared_faces):
+        return kernel_ratio(mesh, tetras)
