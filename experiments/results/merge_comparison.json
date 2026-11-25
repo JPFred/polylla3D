@@ -31,12 +31,67 @@
         "indice_area_media": 0.9983568867576565,
         "indice_area_min": 0.9561772902290815,
         "indice_area_max": 1.0391563352438413,
+        "kernel_rate": 97.88288288288288,
+        "kernel_ratio_media": 0.8632306856976714,
+        "kernel_ratio_min": 0.0,
+        "edge_ratio_media": 0.6543426391742025,
+        "edge_ratio_min": 0.3617635183410042,
+        "por_tamano": {
+          "1": {
+            "poliedros": 852,
+            "convexos_pct": 100.0,
+            "solidez_media": 1.0,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 1.0,
+            "edge_ratio_media": 0.6855891102571252
+          },
+          "2": {
+            "poliedros": 623,
+            "convexos_pct": 51.845906902086675,
+            "solidez_media": 0.8766332562083186,
+            "kernel_rate": 92.61637239165329,
+            "kernel_ratio_media": 0.7815244177599442,
+            "edge_ratio_media": 0.6461680917808821
+          },
+          "3": {
+            "poliedros": 436,
+            "convexos_pct": 30.275229357798164,
+            "solidez_media": 0.845132647660274,
+            "kernel_rate": 99.77064220183486,
+            "kernel_ratio_media": 0.6623105715934459,
+            "edge_ratio_media": 0.6218827748350438
+          },
+          "4": {
+            "poliedros": 241,
+            "convexos_pct": 87.96680497925311,
+            "solidez_media": 0.9716449723400232,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.9257857329120075,
+            "edge_ratio_media": 0.6358984668395927
+          },
+          "5": {
+            "poliedros": 67,
+            "convexos_pct": 74.6268656716418,
+            "solidez_media": 0.9858114394098307,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.9641886438484929,
+            "edge_ratio_media": 0.6116645016351097
+          },
+          "6": {
+            "poliedros": 1,
+            "convexos_pct": 100.0,
+            "solidez_media": 0.9999999999999998,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 1.0,
+            "edge_ratio_media": 0.5820739021961818
+          }
+        },
         "errores_validate": 0,
         "aristas_no_manifold": 47,
         "unidos": 0,
         "en_pareja": 0,
         "sin_unir": 0,
-        "tiempo_s": 0.028649091720581055
+        "tiempo_s": 0.040067195892333984
       },
       {
         "criterio": "convexity",
@@ -62,12 +117,75 @@
         "indice_area_media": 0.996666545007212,
         "indice_area_min": 0.9056568861458243,
         "indice_area_max": 1.0391563352438413,
+        "kernel_rate": 96.97943444730078,
+        "kernel_ratio_media": 0.7729776148266791,
+        "kernel_ratio_min": 0.0,
+        "edge_ratio_media": 0.6261200685662438,
+        "edge_ratio_min": 0.33989980509407997,
+        "por_tamano": {
+          "2": {
+            "poliedros": 653,
+            "convexos_pct": 54.67075038284839,
+            "solidez_media": 0.8882117476548811,
+            "kernel_rate": 92.95558958652374,
+            "kernel_ratio_media": 0.8015479981085185,
+            "edge_ratio_media": 0.641968037571053
+          },
+          "3": {
+            "poliedros": 486,
+            "convexos_pct": 26.54320987654321,
+            "solidez_media": 0.8548989695496355,
+            "kernel_rate": 99.79423868312757,
+            "kernel_ratio_media": 0.684373037366228,
+            "edge_ratio_media": 0.6204307902617894
+          },
+          "4": {
+            "poliedros": 216,
+            "convexos_pct": 60.648148148148145,
+            "solidez_media": 0.9419628637833548,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.8550963616779252,
+            "edge_ratio_media": 0.6035462340131859
+          },
+          "5": {
+            "poliedros": 134,
+            "convexos_pct": 22.388059701492537,
+            "solidez_media": 0.9463193814452341,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.8601806543976879,
+            "edge_ratio_media": 0.6236766849769653
+          },
+          "6": {
+            "poliedros": 58,
+            "convexos_pct": 8.620689655172415,
+            "solidez_media": 0.9012635621202196,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.6972012992579921,
+            "edge_ratio_media": 0.5960206129118738
+          },
+          "7": {
+            "poliedros": 7,
+            "convexos_pct": 28.571428571428573,
+            "solidez_media": 0.9323681012271526,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.7571192643021994,
+            "edge_ratio_media": 0.5371122634663414
+          },
+          "8": {
+            "poliedros": 2,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.8672771483454058,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.51724886333123,
+            "edge_ratio_media": 0.6203451805167572
+          }
+        },
         "errores_validate": 0,
         "aristas_no_manifold": 47,
         "unidos": 664,
         "en_pareja": 188,
         "sin_unir": 0,
-        "tiempo_s": 2.1524600982666016
+        "tiempo_s": 2.0233538150787354
       },
       {
         "criterio": "largest_face",
@@ -95,12 +213,91 @@
         "indice_area_media": 0.9958442641535658,
         "indice_area_min": 0.9531283283497001,
         "indice_area_max": 1.03262314502191,
+        "kernel_rate": 96.44381223328591,
+        "kernel_ratio_media": 0.7087225818524939,
+        "kernel_ratio_min": 0.0,
+        "edge_ratio_media": 0.6136549451272421,
+        "edge_ratio_min": 0.34889531798181933,
+        "por_tamano": {
+          "2": {
+            "poliedros": 482,
+            "convexos_pct": 50.4149377593361,
+            "solidez_media": 0.8770552550547493,
+            "kernel_rate": 93.15352697095436,
+            "kernel_ratio_media": 0.7821205098489115,
+            "edge_ratio_media": 0.6384257033620948
+          },
+          "3": {
+            "poliedros": 391,
+            "convexos_pct": 28.900255754475705,
+            "solidez_media": 0.8534571264710586,
+            "kernel_rate": 98.20971867007673,
+            "kernel_ratio_media": 0.6817222015706099,
+            "edge_ratio_media": 0.6148024642040847
+          },
+          "4": {
+            "poliedros": 257,
+            "convexos_pct": 44.3579766536965,
+            "solidez_media": 0.8853858182479245,
+            "kernel_rate": 98.44357976653697,
+            "kernel_ratio_media": 0.7131383682652888,
+            "edge_ratio_media": 0.6032164749666923
+          },
+          "5": {
+            "poliedros": 169,
+            "convexos_pct": 16.568047337278106,
+            "solidez_media": 0.8774422962831097,
+            "kernel_rate": 98.81656804733728,
+            "kernel_ratio_media": 0.6798117194482921,
+            "edge_ratio_media": 0.5879850972120965
+          },
+          "6": {
+            "poliedros": 71,
+            "convexos_pct": 7.042253521126761,
+            "solidez_media": 0.8543978560410501,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.5680616938360394,
+            "edge_ratio_media": 0.570106218528844
+          },
+          "7": {
+            "poliedros": 21,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.8252620032272993,
+            "kernel_rate": 95.23809523809524,
+            "kernel_ratio_media": 0.46996706124710586,
+            "edge_ratio_media": 0.5655465207885598
+          },
+          "8": {
+            "poliedros": 8,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.8204417024609327,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.40982788361501776,
+            "edge_ratio_media": 0.5237255187875542
+          },
+          "9": {
+            "poliedros": 6,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.7281799700469627,
+            "kernel_rate": 66.66666666666667,
+            "kernel_ratio_media": 0.21390511248565047,
+            "edge_ratio_media": 0.543306886675467
+          },
+          "10": {
+            "poliedros": 1,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.6915554474637484,
+            "kernel_rate": 0.0,
+            "kernel_ratio_media": 0.0,
+            "edge_ratio_media": 0.49012090683045617
+          }
+        },
         "errores_validate": 0,
         "aristas_no_manifold": 44,
         "unidos": 814,
         "en_pareja": 38,
         "sin_unir": 0,
-        "tiempo_s": 0.12201380729675293
+        "tiempo_s": 0.09968781471252441
       },
       {
         "criterio": "equilateral_face",
@@ -127,12 +324,177 @@
         "indice_area_media": 0.9949651687547102,
         "indice_area_min": 0.902226518189461,
         "indice_area_max": 1.0340686305941276,
+        "kernel_rate": 96.8855788761002,
+        "kernel_ratio_media": 0.7337823743247617,
+        "kernel_ratio_min": 0.0,
+        "edge_ratio_media": 0.6143920627031492,
+        "edge_ratio_min": 0.33989980509407997,
+        "por_tamano": {
+          "2": {
+            "poliedros": 531,
+            "convexos_pct": 52.54237288135593,
+            "solidez_media": 0.8875012678069184,
+            "kernel_rate": 94.72693032015066,
+            "kernel_ratio_media": 0.8029270149367151,
+            "edge_ratio_media": 0.6362081596420361
+          },
+          "3": {
+            "poliedros": 435,
+            "convexos_pct": 30.344827586206897,
+            "solidez_media": 0.8535711129888625,
+            "kernel_rate": 96.7816091954023,
+            "kernel_ratio_media": 0.6810453762529265,
+            "edge_ratio_media": 0.607500394599245
+          },
+          "4": {
+            "poliedros": 304,
+            "convexos_pct": 50.0,
+            "solidez_media": 0.8873470317049474,
+            "kernel_rate": 99.01315789473684,
+            "kernel_ratio_media": 0.7201431730534712,
+            "edge_ratio_media": 0.609888051506647
+          },
+          "5": {
+            "poliedros": 136,
+            "convexos_pct": 25.0,
+            "solidez_media": 0.8974932425487289,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.7299211036638903,
+            "edge_ratio_media": 0.5873380675155974
+          },
+          "6": {
+            "poliedros": 55,
+            "convexos_pct": 3.6363636363636362,
+            "solidez_media": 0.8702014010113854,
+            "kernel_rate": 98.18181818181819,
+            "kernel_ratio_media": 0.6301770320484238,
+            "edge_ratio_media": 0.5651961193859837
+          },
+          "7": {
+            "poliedros": 12,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.8558503986628995,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.5994120985960195,
+            "edge_ratio_media": 0.5601124052810517
+          },
+          "8": {
+            "poliedros": 3,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.8120539120422606,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.36438742336756813,
+            "edge_ratio_media": 0.5975782052821105
+          },
+          "10": {
+            "poliedros": 1,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.6938162571211351,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.04894435379164598,
+            "edge_ratio_media": 0.48405730636860417
+          }
+        },
         "errores_validate": 0,
         "aristas_no_manifold": 44,
         "unidos": 743,
         "en_pareja": 109,
         "sin_unir": 0,
-        "tiempo_s": 0.13919615745544434
+        "tiempo_s": 0.17400527000427246
+      },
+      {
+        "criterio": "kernel",
+        "poliedros": 1563,
+        "solos": 0,
+        "tets_por_poliedro_media": 3.0140754958413307,
+        "tets_por_poliedro_max": 8,
+        "tamanos": {
+          "2": 646,
+          "3": 505,
+          "4": 216,
+          "5": 142,
+          "6": 49,
+          "7": 4,
+          "8": 1
+        },
+        "convexos": 659,
+        "convexos_pct": 42.16250799744082,
+        "convexos_multi": 659,
+        "solidez_media": 0.890561105940916,
+        "solidez_mediana": 0.9549258907479969,
+        "solidez_min": 0.4713191312230345,
+        "indice_area_media": 0.9966073894220557,
+        "indice_area_min": 0.9414828591742391,
+        "indice_area_max": 1.0391563352438413,
+        "kernel_rate": 96.99296225207934,
+        "kernel_ratio_media": 0.776681881459947,
+        "kernel_ratio_min": 0.0,
+        "edge_ratio_media": 0.6265192304671829,
+        "edge_ratio_min": 0.33989980509407997,
+        "por_tamano": {
+          "2": {
+            "poliedros": 646,
+            "convexos_pct": 54.17956656346749,
+            "solidez_media": 0.8855585603820698,
+            "kernel_rate": 92.87925696594428,
+            "kernel_ratio_media": 0.7971283749147875,
+            "edge_ratio_media": 0.6419890719391691
+          },
+          "3": {
+            "poliedros": 505,
+            "convexos_pct": 25.742574257425744,
+            "solidez_media": 0.8540109053053915,
+            "kernel_rate": 99.8019801980198,
+            "kernel_ratio_media": 0.6837291376050224,
+            "edge_ratio_media": 0.6212832229971075
+          },
+          "4": {
+            "poliedros": 216,
+            "convexos_pct": 62.96296296296296,
+            "solidez_media": 0.9448264215833724,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.8667141830418319,
+            "edge_ratio_media": 0.6048248863453529
+          },
+          "5": {
+            "poliedros": 142,
+            "convexos_pct": 26.056338028169016,
+            "solidez_media": 0.9499278149954882,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.8744751080596713,
+            "edge_ratio_media": 0.6208888045285059
+          },
+          "6": {
+            "poliedros": 49,
+            "convexos_pct": 12.244897959183673,
+            "solidez_media": 0.9204473856409247,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.7921328628342765,
+            "edge_ratio_media": 0.5957480497961853
+          },
+          "7": {
+            "poliedros": 4,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.9105006716369158,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.7258912430474098,
+            "edge_ratio_media": 0.522594545249376
+          },
+          "8": {
+            "poliedros": 1,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.8844900252910929,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.6218319038298276,
+            "edge_ratio_media": 0.6861708193097139
+          }
+        },
+        "errores_validate": 0,
+        "aristas_no_manifold": 47,
+        "unidos": 657,
+        "en_pareja": 195,
+        "sin_unir": 0,
+        "tiempo_s": 10.150848388671875
       }
     ]
   },
@@ -168,12 +530,67 @@
         "indice_area_media": 0.9981040995561709,
         "indice_area_min": 0.9511970026433733,
         "indice_area_max": 1.0179121377425968,
+        "kernel_rate": 97.75508481728416,
+        "kernel_ratio_media": 0.8541824529096167,
+        "kernel_ratio_min": 0.0,
+        "edge_ratio_media": 0.6750372037071697,
+        "edge_ratio_min": 0.36966557240906406,
+        "por_tamano": {
+          "1": {
+            "poliedros": 4372,
+            "convexos_pct": 100.0,
+            "solidez_media": 1.0,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 1.0,
+            "edge_ratio_media": 0.7147628934746026
+          },
+          "2": {
+            "poliedros": 3131,
+            "convexos_pct": 49.18556371766209,
+            "solidez_media": 0.8678434772671246,
+            "kernel_rate": 91.66400511018844,
+            "kernel_ratio_media": 0.7673002834406893,
+            "edge_ratio_media": 0.6605477509458448
+          },
+          "3": {
+            "poliedros": 2386,
+            "convexos_pct": 23.63788767812238,
+            "solidez_media": 0.8278026032096808,
+            "kernel_rate": 99.79044425817267,
+            "kernel_ratio_media": 0.6227954164297436,
+            "edge_ratio_media": 0.6442356244098898
+          },
+          "4": {
+            "poliedros": 1607,
+            "convexos_pct": 89.79464841319228,
+            "solidez_media": 0.9786070044011113,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.9416266983573096,
+            "edge_ratio_media": 0.6491235463460802
+          },
+          "5": {
+            "poliedros": 346,
+            "convexos_pct": 86.41618497109826,
+            "solidez_media": 0.9946447137559591,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.9866914806300645,
+            "edge_ratio_media": 0.6389930848334469
+          },
+          "6": {
+            "poliedros": 7,
+            "convexos_pct": 14.285714285714286,
+            "solidez_media": 0.9546788290654267,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.8873538448119064,
+            "edge_ratio_media": 0.5740145816186435
+          }
+        },
         "errores_validate": 0,
         "aristas_no_manifold": 266,
         "unidos": 0,
         "en_pareja": 0,
         "sin_unir": 0,
-        "tiempo_s": 0.2127077579498291
+        "tiempo_s": 0.1561284065246582
       },
       {
         "criterio": "convexity",
@@ -200,12 +617,83 @@
         "indice_area_media": 0.996221381933586,
         "indice_area_min": 0.9019838938502739,
         "indice_area_max": 1.0552739421531647,
+        "kernel_rate": 96.86904761904762,
+        "kernel_ratio_media": 0.7547807239068794,
+        "kernel_ratio_min": 0.0,
+        "edge_ratio_media": 0.6467890404234015,
+        "edge_ratio_min": 0.36966557240906406,
+        "por_tamano": {
+          "2": {
+            "poliedros": 3176,
+            "convexos_pct": 52.51889168765743,
+            "solidez_media": 0.8753622824462134,
+            "kernel_rate": 91.8765743073048,
+            "kernel_ratio_media": 0.7801918070205306,
+            "edge_ratio_media": 0.6615460602493345
+          },
+          "3": {
+            "poliedros": 2824,
+            "convexos_pct": 21.31728045325779,
+            "solidez_media": 0.8472142429445717,
+            "kernel_rate": 99.8229461756374,
+            "kernel_ratio_media": 0.6671194723424125,
+            "edge_ratio_media": 0.6456220455349985
+          },
+          "4": {
+            "poliedros": 1217,
+            "convexos_pct": 66.80361544782251,
+            "solidez_media": 0.9454857323870699,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.8588748883489417,
+            "edge_ratio_media": 0.632818081611969
+          },
+          "5": {
+            "poliedros": 844,
+            "convexos_pct": 23.104265402843602,
+            "solidez_media": 0.9380456470341436,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.8307459787243368,
+            "edge_ratio_media": 0.6310262427139466
+          },
+          "6": {
+            "poliedros": 299,
+            "convexos_pct": 6.0200668896321075,
+            "solidez_media": 0.9020075069869865,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.7042945209298469,
+            "edge_ratio_media": 0.6125336346230008
+          },
+          "7": {
+            "poliedros": 35,
+            "convexos_pct": 5.714285714285714,
+            "solidez_media": 0.8595406428305913,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.5349482153666906,
+            "edge_ratio_media": 0.5797683487514711
+          },
+          "8": {
+            "poliedros": 4,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.8681279676696133,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.5410665952278807,
+            "edge_ratio_media": 0.5030158851249823
+          },
+          "9": {
+            "poliedros": 1,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.8798946798277263,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.45165098483717225,
+            "edge_ratio_media": 0.5437289424340133
+          }
+        },
         "errores_validate": 0,
         "aristas_no_manifold": 263,
         "unidos": 3449,
         "en_pareja": 923,
         "sin_unir": 0,
-        "tiempo_s": 12.039538860321045
+        "tiempo_s": 11.09099793434143
       },
       {
         "criterio": "largest_face",
@@ -233,12 +721,91 @@
         "indice_area_media": 0.9952089449894278,
         "indice_area_min": 0.9216483264309402,
         "indice_area_max": 1.071753234891089,
+        "kernel_rate": 96.46796218487395,
+        "kernel_ratio_media": 0.693916026517576,
+        "kernel_ratio_min": 0.0,
+        "edge_ratio_media": 0.6359235849095924,
+        "edge_ratio_min": 0.3357214373590629,
+        "por_tamano": {
+          "2": {
+            "poliedros": 2359,
+            "convexos_pct": 48.367952522255194,
+            "solidez_media": 0.8658378944888923,
+            "kernel_rate": 92.32725731242051,
+            "kernel_ratio_media": 0.7654768560136671,
+            "edge_ratio_media": 0.656851361992207
+          },
+          "3": {
+            "poliedros": 2136,
+            "convexos_pct": 24.765917602996254,
+            "solidez_media": 0.8417062457464304,
+            "kernel_rate": 97.28464419475655,
+            "kernel_ratio_media": 0.6546590436402407,
+            "edge_ratio_media": 0.6352319628509482
+          },
+          "4": {
+            "poliedros": 1611,
+            "convexos_pct": 48.10676598386095,
+            "solidez_media": 0.8860049670699843,
+            "kernel_rate": 99.06890130353817,
+            "kernel_ratio_media": 0.7192888527435451,
+            "edge_ratio_media": 0.6308533349061182
+          },
+          "5": {
+            "poliedros": 905,
+            "convexos_pct": 18.34254143646409,
+            "solidez_media": 0.8778390658159849,
+            "kernel_rate": 99.00552486187846,
+            "kernel_ratio_media": 0.6775475894615499,
+            "edge_ratio_media": 0.6178068378684131
+          },
+          "6": {
+            "poliedros": 412,
+            "convexos_pct": 1.6990291262135921,
+            "solidez_media": 0.8541001553446268,
+            "kernel_rate": 99.02912621359224,
+            "kernel_ratio_media": 0.5702209260974598,
+            "edge_ratio_media": 0.6030845361988549
+          },
+          "7": {
+            "poliedros": 133,
+            "convexos_pct": 3.007518796992481,
+            "solidez_media": 0.8161345539598078,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.4374557902099023,
+            "edge_ratio_media": 0.5837255847222672
+          },
+          "8": {
+            "poliedros": 47,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.7663367995896949,
+            "kernel_rate": 97.87234042553192,
+            "kernel_ratio_media": 0.26287716746226825,
+            "edge_ratio_media": 0.5963674851983124
+          },
+          "9": {
+            "poliedros": 12,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.754592991130377,
+            "kernel_rate": 91.66666666666667,
+            "kernel_ratio_media": 0.2711090994353032,
+            "edge_ratio_media": 0.5599744740451942
+          },
+          "10": {
+            "poliedros": 1,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.7045405300599122,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.07674945948882755,
+            "edge_ratio_media": 0.550979102691167
+          }
+        },
         "errores_validate": 0,
         "aristas_no_manifold": 258,
         "unidos": 4233,
         "en_pareja": 139,
         "sin_unir": 0,
-        "tiempo_s": 0.6947109699249268
+        "tiempo_s": 0.6134459972381592
       },
       {
         "criterio": "equilateral_face",
@@ -265,12 +832,177 @@
         "indice_area_media": 0.9943437437436813,
         "indice_area_min": 0.8729742915800754,
         "indice_area_max": 1.0617520239286904,
+        "kernel_rate": 96.88667496886676,
+        "kernel_ratio_media": 0.7197023484682766,
+        "kernel_ratio_min": 0.0,
+        "edge_ratio_media": 0.6378548795474138,
+        "edge_ratio_min": 0.36966557240906406,
+        "por_tamano": {
+          "2": {
+            "poliedros": 2707,
+            "convexos_pct": 50.94200221647581,
+            "solidez_media": 0.8772262540389691,
+            "kernel_rate": 93.64610269671223,
+            "kernel_ratio_media": 0.7865639417815566,
+            "edge_ratio_media": 0.6552235289688967
+          },
+          "3": {
+            "poliedros": 2367,
+            "convexos_pct": 24.92606675116181,
+            "solidez_media": 0.841823395172926,
+            "kernel_rate": 97.59188846641318,
+            "kernel_ratio_media": 0.6542066064800086,
+            "edge_ratio_media": 0.6341678861013057
+          },
+          "4": {
+            "poliedros": 1797,
+            "convexos_pct": 54.47968836950473,
+            "solidez_media": 0.895044366627561,
+            "kernel_rate": 99.10962715637173,
+            "kernel_ratio_media": 0.7387369305763054,
+            "edge_ratio_media": 0.6324835293855524
+          },
+          "5": {
+            "poliedros": 775,
+            "convexos_pct": 22.193548387096776,
+            "solidez_media": 0.8933012832776426,
+            "kernel_rate": 99.61290322580645,
+            "kernel_ratio_media": 0.7199677348690019,
+            "edge_ratio_media": 0.6208945877754953
+          },
+          "6": {
+            "poliedros": 297,
+            "convexos_pct": 4.040404040404041,
+            "solidez_media": 0.8594361869325468,
+            "kernel_rate": 99.32659932659932,
+            "kernel_ratio_media": 0.598815030150848,
+            "edge_ratio_media": 0.5988027847861023
+          },
+          "7": {
+            "poliedros": 69,
+            "convexos_pct": 1.4492753623188406,
+            "solidez_media": 0.8062798884867852,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.47955689480267927,
+            "edge_ratio_media": 0.5962236665275699
+          },
+          "8": {
+            "poliedros": 13,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.7636430157314015,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.31250452083866803,
+            "edge_ratio_media": 0.5875431703098407
+          },
+          "9": {
+            "poliedros": 5,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.7411144627881888,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.19778460464412917,
+            "edge_ratio_media": 0.5642148654779554
+          }
+        },
         "errores_validate": 0,
         "aristas_no_manifold": 241,
         "unidos": 3819,
         "en_pareja": 553,
         "sin_unir": 0,
-        "tiempo_s": 0.8385992050170898
+        "tiempo_s": 0.7682445049285889
+      },
+      {
+        "criterio": "kernel",
+        "poliedros": 8457,
+        "solos": 0,
+        "tets_por_poliedro_media": 3.0734302944306493,
+        "tets_por_poliedro_max": 8,
+        "tamanos": {
+          "2": 3165,
+          "3": 2902,
+          "4": 1275,
+          "5": 855,
+          "6": 242,
+          "7": 15,
+          "8": 3
+        },
+        "convexos": 3338,
+        "convexos_pct": 39.47026132198179,
+        "convexos_multi": 3338,
+        "solidez_media": 0.8822968551101149,
+        "solidez_mediana": 0.9307930961346845,
+        "solidez_min": 0.36196815582005837,
+        "indice_area_media": 0.9961080482633979,
+        "indice_area_min": 0.9026021376485314,
+        "indice_area_max": 1.0189320953618566,
+        "kernel_rate": 96.87832564739269,
+        "kernel_ratio_media": 0.7598243250182829,
+        "kernel_ratio_min": 0.0,
+        "edge_ratio_media": 0.6470825333416855,
+        "edge_ratio_min": 0.36966557240906406,
+        "por_tamano": {
+          "2": {
+            "poliedros": 3165,
+            "convexos_pct": 51.18483412322275,
+            "solidez_media": 0.8706817245872326,
+            "kernel_rate": 91.81674565560822,
+            "kernel_ratio_media": 0.7726009149911242,
+            "edge_ratio_media": 0.6609125931930394
+          },
+          "3": {
+            "poliedros": 2902,
+            "convexos_pct": 20.33080634045486,
+            "solidez_media": 0.8446069417191979,
+            "kernel_rate": 99.8277050310131,
+            "kernel_ratio_media": 0.6626762020753403,
+            "edge_ratio_media": 0.645259453380757
+          },
+          "4": {
+            "poliedros": 1275,
+            "convexos_pct": 68.3921568627451,
+            "solidez_media": 0.9480546703644271,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.8741825502545748,
+            "edge_ratio_media": 0.6316960579326175
+          },
+          "5": {
+            "poliedros": 855,
+            "convexos_pct": 28.18713450292398,
+            "solidez_media": 0.9470114024025394,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.8711340462625088,
+            "edge_ratio_media": 0.6350777928280393
+          },
+          "6": {
+            "poliedros": 242,
+            "convexos_pct": 5.785123966942149,
+            "solidez_media": 0.9120369716119822,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.7686970587215292,
+            "edge_ratio_media": 0.6148156850328023
+          },
+          "7": {
+            "poliedros": 15,
+            "convexos_pct": 6.666666666666667,
+            "solidez_media": 0.8590464106670932,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.64127051366483,
+            "edge_ratio_media": 0.6200612287781231
+          },
+          "8": {
+            "poliedros": 3,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.9214678065387201,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.8066584218207222,
+            "edge_ratio_media": 0.5184641206789007
+          }
+        },
+        "errores_validate": 0,
+        "aristas_no_manifold": 264,
+        "unidos": 3392,
+        "en_pareja": 980,
+        "sin_unir": 0,
+        "tiempo_s": 56.5909321308136
       }
     ]
   },
@@ -306,12 +1038,67 @@
         "indice_area_media": 0.9981119043624868,
         "indice_area_min": 0.9517652269821291,
         "indice_area_max": 1.080143414821085,
+        "kernel_rate": 97.84282891818879,
+        "kernel_ratio_media": 0.8565806947061411,
+        "kernel_ratio_min": 0.0,
+        "edge_ratio_media": 0.6773843421734607,
+        "edge_ratio_min": 0.3257784140146933,
+        "por_tamano": {
+          "1": {
+            "poliedros": 9142,
+            "convexos_pct": 100.0,
+            "solidez_media": 1.0,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 1.0,
+            "edge_ratio_media": 0.7170009880006936
+          },
+          "2": {
+            "poliedros": 6433,
+            "convexos_pct": 49.541427016943885,
+            "solidez_media": 0.8696338712006881,
+            "kernel_rate": 91.90113477382248,
+            "kernel_ratio_media": 0.7704329846851549,
+            "edge_ratio_media": 0.661886701347494
+          },
+          "3": {
+            "poliedros": 5038,
+            "convexos_pct": 24.176260420801906,
+            "solidez_media": 0.8316071577717581,
+            "kernel_rate": 99.72211194918619,
+            "kernel_ratio_media": 0.6324191293078834,
+            "edge_ratio_media": 0.6481912256694741
+          },
+          "4": {
+            "poliedros": 3391,
+            "convexos_pct": 89.76703037452079,
+            "solidez_media": 0.9776936948190451,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.9379639644257537,
+            "edge_ratio_media": 0.6513493072391532
+          },
+          "5": {
+            "poliedros": 777,
+            "convexos_pct": 83.65508365508366,
+            "solidez_media": 0.992270888933938,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.9802357974476398,
+            "edge_ratio_media": 0.6445808934926703
+          },
+          "6": {
+            "poliedros": 20,
+            "convexos_pct": 35.0,
+            "solidez_media": 0.952988283617325,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.8727913744870267,
+            "edge_ratio_media": 0.5958319079321341
+          }
+        },
         "errores_validate": 0,
         "aristas_no_manifold": 535,
         "unidos": 0,
         "en_pareja": 0,
         "sin_unir": 0,
-        "tiempo_s": 0.369251012802124
+        "tiempo_s": 0.35785794258117676
       },
       {
         "criterio": "convexity",
@@ -338,12 +1125,83 @@
         "indice_area_media": 0.9962277638257033,
         "indice_area_min": 0.9207323507611062,
         "indice_area_max": 1.080143414821085,
+        "kernel_rate": 97.02212138400454,
+        "kernel_ratio_media": 0.7584320973066138,
+        "kernel_ratio_min": 0.0,
+        "edge_ratio_media": 0.6495086813745617,
+        "edge_ratio_min": 0.3257784140146933,
+        "por_tamano": {
+          "2": {
+            "poliedros": 6669,
+            "convexos_pct": 54.176038386564706,
+            "solidez_media": 0.8804961790138286,
+            "kernel_rate": 92.32268705952916,
+            "kernel_ratio_media": 0.7893224236109758,
+            "edge_ratio_media": 0.6648078355926479
+          },
+          "3": {
+            "poliedros": 5865,
+            "convexos_pct": 21.22762148337596,
+            "solidez_media": 0.8466952745990495,
+            "kernel_rate": 99.77834612105711,
+            "kernel_ratio_media": 0.6667730535394516,
+            "edge_ratio_media": 0.6478100190974554
+          },
+          "4": {
+            "poliedros": 2527,
+            "convexos_pct": 66.04669568658488,
+            "solidez_media": 0.9449390609172187,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.8568416217694153,
+            "edge_ratio_media": 0.6356323267058034
+          },
+          "5": {
+            "poliedros": 1881,
+            "convexos_pct": 24.242424242424242,
+            "solidez_media": 0.9382183268838875,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.8293529851609721,
+            "edge_ratio_media": 0.6330435389438961
+          },
+          "6": {
+            "poliedros": 586,
+            "convexos_pct": 6.313993174061434,
+            "solidez_media": 0.9013788711084963,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.6991538887265163,
+            "edge_ratio_media": 0.6143378529971267
+          },
+          "7": {
+            "poliedros": 89,
+            "convexos_pct": 7.865168539325842,
+            "solidez_media": 0.8801883962226935,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.6160694528557998,
+            "edge_ratio_media": 0.5944644569024604
+          },
+          "8": {
+            "poliedros": 11,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.8720374983684015,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.5281163783161813,
+            "edge_ratio_media": 0.6010371039379563
+          },
+          "9": {
+            "poliedros": 2,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.8629855304500622,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.47364494331836315,
+            "edge_ratio_media": 0.6551610282964442
+          }
+        },
         "errores_validate": 0,
         "aristas_no_manifold": 525,
         "unidos": 7171,
         "en_pareja": 1971,
         "sin_unir": 0,
-        "tiempo_s": 25.509302616119385
+        "tiempo_s": 23.451379537582397
       },
       {
         "criterio": "largest_face",
@@ -372,12 +1230,99 @@
         "indice_area_media": 0.9951088274796079,
         "indice_area_min": 0.9070579379386398,
         "indice_area_max": 1.1030875950386216,
+        "kernel_rate": 96.63781206874921,
+        "kernel_ratio_media": 0.6974466193027384,
+        "kernel_ratio_min": 0.0,
+        "edge_ratio_media": 0.6382479603509363,
+        "edge_ratio_min": 0.3257784140146933,
+        "por_tamano": {
+          "2": {
+            "poliedros": 4828,
+            "convexos_pct": 47.88732394366197,
+            "solidez_media": 0.8651586538421013,
+            "kernel_rate": 92.17067108533554,
+            "kernel_ratio_media": 0.7638606918268334,
+            "edge_ratio_media": 0.6583849478819603
+          },
+          "3": {
+            "poliedros": 4491,
+            "convexos_pct": 25.339568024938767,
+            "solidez_media": 0.8465035391800462,
+            "kernel_rate": 97.52839011356045,
+            "kernel_ratio_media": 0.6672766025048426,
+            "edge_ratio_media": 0.6387717631011118
+          },
+          "4": {
+            "poliedros": 3454,
+            "convexos_pct": 47.452229299363054,
+            "solidez_media": 0.8824442382821789,
+            "kernel_rate": 99.27620150550086,
+            "kernel_ratio_media": 0.7106261627403433,
+            "edge_ratio_media": 0.6319487063258026
+          },
+          "5": {
+            "poliedros": 1898,
+            "convexos_pct": 18.01896733403583,
+            "solidez_media": 0.8850233012965649,
+            "kernel_rate": 99.42044257112751,
+            "kernel_ratio_media": 0.6930876574551778,
+            "edge_ratio_media": 0.6206309187710068
+          },
+          "6": {
+            "poliedros": 824,
+            "convexos_pct": 3.2766990291262137,
+            "solidez_media": 0.8569831903794722,
+            "kernel_rate": 99.27184466019418,
+            "kernel_ratio_media": 0.5806691788145072,
+            "edge_ratio_media": 0.6078222499686102
+          },
+          "7": {
+            "poliedros": 316,
+            "convexos_pct": 3.481012658227848,
+            "solidez_media": 0.8221761891110748,
+            "kernel_rate": 99.36708860759494,
+            "kernel_ratio_media": 0.461057588550548,
+            "edge_ratio_media": 0.5981357320072813
+          },
+          "8": {
+            "poliedros": 93,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.7823658881928661,
+            "kernel_rate": 96.7741935483871,
+            "kernel_ratio_media": 0.33738371241561516,
+            "edge_ratio_media": 0.5911397757280028
+          },
+          "9": {
+            "poliedros": 28,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.7478134553325174,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.2388199307677091,
+            "edge_ratio_media": 0.5833999997746128
+          },
+          "10": {
+            "poliedros": 6,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.7283209975274558,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.24292374862738747,
+            "edge_ratio_media": 0.5698121155379725
+          },
+          "11": {
+            "poliedros": 4,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.6754103808657933,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.09135896173619439,
+            "edge_ratio_media": 0.5619137146697203
+          }
+        },
         "errores_validate": 0,
         "aristas_no_manifold": 518,
         "unidos": 8859,
         "en_pareja": 283,
         "sin_unir": 0,
-        "tiempo_s": 1.5927488803863525
+        "tiempo_s": 1.4741106033325195
       },
       {
         "criterio": "equilateral_face",
@@ -405,12 +1350,185 @@
         "indice_area_media": 0.9943110995622185,
         "indice_area_min": 0.8881396595938753,
         "indice_area_max": 1.080143414821085,
+        "kernel_rate": 97.02741189035244,
+        "kernel_ratio_media": 0.7233693080355528,
+        "kernel_ratio_min": 0.0,
+        "edge_ratio_media": 0.6409794610679386,
+        "edge_ratio_min": 0.3257784140146933,
+        "por_tamano": {
+          "2": {
+            "poliedros": 5669,
+            "convexos_pct": 51.50820250485094,
+            "solidez_media": 0.8783725469764476,
+            "kernel_rate": 93.66731345916388,
+            "kernel_ratio_media": 0.7882512013719821,
+            "edge_ratio_media": 0.6580036497474746
+          },
+          "3": {
+            "poliedros": 4952,
+            "convexos_pct": 24.979806138933764,
+            "solidez_media": 0.8453888644177255,
+            "kernel_rate": 97.69789983844912,
+            "kernel_ratio_media": 0.6639488576916188,
+            "edge_ratio_media": 0.6387341272622662
+          },
+          "4": {
+            "poliedros": 3635,
+            "convexos_pct": 54.415405777166434,
+            "solidez_media": 0.8937906072272018,
+            "kernel_rate": 99.47730398899587,
+            "kernel_ratio_media": 0.736801076340416,
+            "edge_ratio_media": 0.6341507538053003
+          },
+          "5": {
+            "poliedros": 1834,
+            "convexos_pct": 23.882224645583424,
+            "solidez_media": 0.892840864277778,
+            "kernel_rate": 99.83642311886587,
+            "kernel_ratio_media": 0.7155767548798533,
+            "edge_ratio_media": 0.6231257942085333
+          },
+          "6": {
+            "poliedros": 596,
+            "convexos_pct": 3.859060402684564,
+            "solidez_media": 0.8640886214963315,
+            "kernel_rate": 99.16107382550335,
+            "kernel_ratio_media": 0.6120481203084033,
+            "edge_ratio_media": 0.6055928302490791
+          },
+          "7": {
+            "poliedros": 141,
+            "convexos_pct": 2.8368794326241136,
+            "solidez_media": 0.816096509204285,
+            "kernel_rate": 99.29078014184397,
+            "kernel_ratio_media": 0.4914375641920137,
+            "edge_ratio_media": 0.6065568502364401
+          },
+          "8": {
+            "poliedros": 21,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.7736421960443921,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.4032675260167458,
+            "edge_ratio_media": 0.5811694580444706
+          },
+          "9": {
+            "poliedros": 4,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.7624894007109035,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.3860633612807812,
+            "edge_ratio_media": 0.5433075033539014
+          },
+          "10": {
+            "poliedros": 2,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.6894437608100461,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.23479253556219543,
+            "edge_ratio_media": 0.5237101065027622
+          }
+        },
         "errores_validate": 0,
         "aristas_no_manifold": 490,
         "unidos": 7947,
         "en_pareja": 1195,
         "sin_unir": 0,
-        "tiempo_s": 1.7861394882202148
+        "tiempo_s": 1.7071201801300049
+      },
+      {
+        "criterio": "kernel",
+        "poliedros": 17774,
+        "solos": 0,
+        "tets_por_poliedro_media": 3.0770226173061777,
+        "tets_por_poliedro_max": 8,
+        "tamanos": {
+          "2": 6686,
+          "3": 6009,
+          "4": 2670,
+          "5": 1898,
+          "6": 460,
+          "7": 46,
+          "8": 5
+        },
+        "convexos": 7168,
+        "convexos_pct": 40.32856982108698,
+        "convexos_multi": 7168,
+        "solidez_media": 0.8847869675402562,
+        "solidez_mediana": 0.9329285630454892,
+        "solidez_min": 0.39426373866836756,
+        "indice_area_media": 0.996137384839552,
+        "indice_area_min": 0.9159752748530351,
+        "indice_area_max": 1.080143414821085,
+        "kernel_rate": 97.02936874085744,
+        "kernel_ratio_media": 0.7641512511336079,
+        "kernel_ratio_min": 0.0,
+        "edge_ratio_media": 0.6497486255757315,
+        "edge_ratio_min": 0.3257784140146933,
+        "por_tamano": {
+          "2": {
+            "poliedros": 6686,
+            "convexos_pct": 52.811845647621894,
+            "solidez_media": 0.8757958716068787,
+            "kernel_rate": 92.31229434639545,
+            "kernel_ratio_media": 0.781752212389522,
+            "edge_ratio_media": 0.6636910288433754
+          },
+          "3": {
+            "poliedros": 6009,
+            "convexos_pct": 20.68563820935264,
+            "solidez_media": 0.8457800332696329,
+            "kernel_rate": 99.76701614245299,
+            "kernel_ratio_media": 0.6657354823149793,
+            "edge_ratio_media": 0.6476787997624663
+          },
+          "4": {
+            "poliedros": 2670,
+            "convexos_pct": 67.49063670411985,
+            "solidez_media": 0.9459429800438768,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.8675377908786225,
+            "edge_ratio_media": 0.635282960262791
+          },
+          "5": {
+            "poliedros": 1898,
+            "convexos_pct": 29.29399367755532,
+            "solidez_media": 0.9468350776814995,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.866607002751415,
+            "edge_ratio_media": 0.6366279766151574
+          },
+          "6": {
+            "poliedros": 460,
+            "convexos_pct": 6.521739130434782,
+            "solidez_media": 0.9136737342727976,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.7766784721231689,
+            "edge_ratio_media": 0.6180597062350018
+          },
+          "7": {
+            "poliedros": 46,
+            "convexos_pct": 13.043478260869565,
+            "solidez_media": 0.885644865350397,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.7107167658677648,
+            "edge_ratio_media": 0.5972897224158061
+          },
+          "8": {
+            "poliedros": 5,
+            "convexos_pct": 0.0,
+            "solidez_media": 0.909965570291465,
+            "kernel_rate": 100.0,
+            "kernel_ratio_media": 0.7426942214020463,
+            "edge_ratio_media": 0.5967497494273432
+          }
+        },
+        "errores_validate": 0,
+        "aristas_no_manifold": 528,
+        "unidos": 7027,
+        "en_pareja": 2115,
+        "sin_unir": 0,
+        "tiempo_s": 117.51769518852234
       }
     ]
   }
