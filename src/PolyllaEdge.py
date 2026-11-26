@@ -274,7 +274,7 @@ if __name__ == "__main__":
     output_folder.mkdir(parents=True, exist_ok=True)
 
     # file can be "27uniform.1", "43quality.1", ... (quality meshes: experiments/generate_quality_meshes.py)
-    file = "43quality.1"
+    file = "64uniform.1"
     separate_hanging = False
     verbose = True
     merge_criterion = ConvexityCriterion()   # None to skip the merge phase
@@ -290,6 +290,8 @@ if __name__ == "__main__":
     polylla_mesh = PolyllaEdge(mesh, separate_hanging, verbose, merge_criterion)
     polylla_mesh.validate()
 
+    polylla_mesh.printOFF_polyhedralmesh(str(output_folder / f"{file}_edge_polyhedral_mesh.off"))
+    polylla_mesh.printOFF_polyhedralmesh_colors(str(output_folder / f"{file}_edge_polyhedral_mesh_colors.visf"))
     polylla_mesh.printVISF_polyhedralmesh(str(output_folder / f"{file}_edge_polyhedral_mesh.visf"))
     polylla_mesh.printVISF_camaron(str(output_folder / f"{file}_edge_polyhedral_mesh_camaron.visf"))
     polylla_mesh.printPolyhedraIndex_camaron(str(output_folder / f"{file}_edge_polyhedra_camaron.txt"))
